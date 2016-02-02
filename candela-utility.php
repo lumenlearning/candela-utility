@@ -182,7 +182,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 
 	$wp_admin_bar->add_menu( array(
 		'id' => 'wp-logo',
-		'title' => 'Candela',
+		'title' => 'Lumen',
 		'href' => ( 'http://lumenlearning.com/' ),
 		'meta' => array(
 			'title' => __( 'About LumenLearning', 'lumen' ),
