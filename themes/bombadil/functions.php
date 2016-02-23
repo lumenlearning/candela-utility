@@ -91,13 +91,23 @@ function ca_get_links($echo=true) {
   $first_chapter = pb_get_first();
   $prev_chapter = pb_get_prev();
   $next_chapter = pb_get_next();
+  if(isset($_GET['content_only'])){
+    $next_chapter = add_query_arg( 'content_only', 1, $next_chapter );
+    $prev_chapter = add_query_arg( 'content_only', 1, $prev_chapter );
+  }
+
+  if(isset($_GET['lti_context_id'])){
+    $next_chapter = add_query_arg( 'lti_context_id', $_GET['lti_context_id'], $next_chapter );
+    $prev_chapter = add_query_arg( 'lti_context_id', $_GET['lti_context_id'], $prev_chapter );
+  }
+
   if ($echo):
     ?><div class="bottom-nav-buttons">
     <?php if ($prev_chapter != '/') : ?>
-    <a class="page-nav-btn" id="prev" href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a>
+    <a class="page-nav-btn" id="prev" href="<?php echo esc_url($prev_chapter); ?>"><?php _e('Previous', 'pressbooks'); ?></a>
   <?php endif; ?>
     <?php if ($next_chapter != '/') : ?>
-    <a class="page-nav-btn" id="next" href="<?php echo $next_chapter; ?>"><?php _e('Next', 'pressbooks'); ?></a>
+    <a class="page-nav-btn" id="next" href="<?php echo esc_url($next_chapter); ?>"><?php _e('Next', 'pressbooks'); ?></a>
   <?php endif; ?>
     </div><?php
   endif;
@@ -111,18 +121,18 @@ function add_iframe_resize_message() {
 
   printf(
       '<script>
-    if(self != top){
-      // get rid of double iframe scrollbars
-      var default_height = Math.max(
-          document.body.scrollHeight, document.body.offsetHeight,
-          document.documentElement.clientHeight, document.documentElement.scrollHeight,
-          document.documentElement.offsetHeight);
-      parent.postMessage(JSON.stringify({
-          subject: "lti.frameResize",
-          height: default_height
-      }), "*");
-    }
-</script>'
+        if(self != top){
+          // get rid of double iframe scrollbars
+          var default_height = Math.max(
+              document.body.scrollHeight, document.body.offsetHeight,
+              document.documentElement.clientHeight, document.documentElement.scrollHeight,
+              document.documentElement.offsetHeight);
+          parent.postMessage(JSON.stringify({
+              subject: "lti.frameResize",
+              height: default_height
+          }), "*");
+        }
+      </script>'
   );
 
 }
@@ -200,7 +210,6 @@ function show_edit_button(){
 function show_navigation_buttons(){
     return show_nav_options('navigation_show_navigation_buttons');
 }
-
 
 function choose_logo($chosen_logo){
     $navigation = get_option( 'pressbooks_theme_options_navigation' );
