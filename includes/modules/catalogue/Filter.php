@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Filter provides different views of the data. It takes arrays and turns them into html 
+ * Filter provides different views of the data. It takes arrays and turns them into html
  * October 2012
- * 
+ *
  * @package   PressBooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
@@ -29,11 +29,11 @@ class Filter {
 
 	/**
 	 * This class needs an array of values and takes care of displaying those values
-	 * in different ways depending on what you need. 
+	 * in different ways depending on what you need.
 	 * @param bool $keywordFlag
 	 * @param array $anyArray
 	 * @param string $subject either a keyword, subject or contributor details
-	 * @param string $uuid 
+	 * @param string $uuid
 	 */
 	public function __construct( $keywordFlag, $contributorFlag, $anyArray = array(), $subject = '', $uuid = '' ) {
 		/* check to be sure that we can get results from an equella array */
@@ -51,9 +51,9 @@ class Filter {
 			$this->subject = $subject;
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param type $number
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ class Filter {
 		if ( is_int( $number ) ) {
 			$num = intval( $number );
 		}
-		//only process if it's bigger than zero 
+		//only process if it's bigger than zero
 		if ( $num > 0 ) {
 			//return in Megabytes
 			$result = ($num / 1000000);
@@ -81,7 +81,7 @@ class Filter {
 
 	/**
 	 * Helper function to evaluate the type of document and add the appropriate logo
-	 * 
+	 *
 	 * @param type $string
 	 * @return string
 	 */
@@ -129,17 +129,17 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 	/**
 	 * Helper function to display whichever license applies
-	 * 
+	 *
 	 * @param string
 	 * @return string
 	 */
 	private function licensePicker( $string ) {
 		$result = '';
 
-		//evaluate  
+		//evaluate
 		if ( ! stristr( $string, 'CC-BY-NC-SA' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
         Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.</small></figcaption></figure>";
@@ -148,10 +148,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 		}
 		if ( ! stristr( $string, 'CC-BY-NC-ND' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
         Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
-        This license only allows others to download your works 
+        This license only allows others to download your works
         and share them with others as long as they credit you, but they can’t change them in any way or use them commercially.</small></figcaption></figure>";
 
 			return $result;
@@ -159,11 +159,11 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 		if ( ! stristr( $string, 'CC-BY-NC' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
         Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
-        This license lets others remix, tweak, and build upon your work non-commercially, 
-        and although their new works must also acknowledge you and be non-commercial, 
+        This license lets others remix, tweak, and build upon your work non-commercially,
+        and although their new works must also acknowledge you and be non-commercial,
         they don’t have to license their derivative works on the same terms.</small></figcaption></figure>";
 
 			return $result;
@@ -171,7 +171,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 		if ( ! stristr( $string, 'CC-BY-ND' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nd/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nd/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
         Creative Commons Attribution-NoDerivs 3.0 Unported License</a>.
         This license allows for redistribution, commercial and non-commercial, as long as it is passed along unchanged and in whole, with credit to you.</small></figcaption></figure>";
@@ -181,14 +181,14 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 		if ( ! stristr( $string, 'CC-BY-SA' ) == false ) {
 			$result .= "<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/3.0/88x31.png' />
         </a><figcaption><small class='muted'>This work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
         Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
-        This license lets others remix, tweak, and build upon your work even for commercial purposes, 
-        as long as they credit you and license their new creations under the identical terms. 
-        This license is often compared to “copyleft” free and open source software licenses. 
-        All new works based on yours will carry the same license, so any derivatives will also allow commercial use. 
-        This is the license used by Wikipedia, and is recommended for materials that would benefit from incorporating content 
+        This license lets others remix, tweak, and build upon your work even for commercial purposes,
+        as long as they credit you and license their new creations under the identical terms.
+        This license is often compared to “copyleft” free and open source software licenses.
+        All new works based on yours will carry the same license, so any derivatives will also allow commercial use.
+        This is the license used by Wikipedia, and is recommended for materials that would benefit from incorporating content
         from Wikipedia and similarly licensed projects.</small></figcaption></figure>";
 
 			return $result;
@@ -196,11 +196,11 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 		if ( ! stristr( $string, 'CC-BY' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' />
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
         Creative Commons Attribution 3.0 Unported License</a>.
-        This license lets others distribute, remix, tweak, and build upon your work, even commercially, as long as they credit you for the original creation. 
-        This is the most accommodating of licenses offered. 
+        This license lets others distribute, remix, tweak, and build upon your work, even commercially, as long as they credit you for the original creation.
+        This is the most accommodating of licenses offered.
         Recommended for maximum dissemination and use of licensed materials.</small></figcaption></figure>";
 
 			return $result;
@@ -208,7 +208,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 		//default
 		$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/2.5/ca/88x31.png' /></a>
+        <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/2.5/ca/88x31.png' /></a>
         <figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         Creative Commons Attribution-ShareAlike 2.5 Canada License</a>.</small></figcaption></figure>";
 
@@ -218,9 +218,9 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 	/**
 	 * Filters through an array by the keys you pass it, with a default limit of 10
 	 * and unless specified otherwise, starting at the beginning of the array
-	 * 
+	 *
 	 * @param Int $start - where in the array you'd like to start from
-	 * @param Int $limit - how many results you want, pass a zero if you want all 
+	 * @param Int $limit - how many results you want, pass a zero if you want all
 	 * the results.
 	 * @return String with HTML
 	 */
@@ -229,7 +229,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 		$i = 0;
 		$reviews = '';
 
-		//just in case a start value is passed that is greater than what is available  
+		//just in case a start value is passed that is greater than what is available
 		if ( $start > $this->size ) {
 			$html = "<p>That's it, no more records</p>";
 			return $html;
