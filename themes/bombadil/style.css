@@ -39,6 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 600;
 	text-align: left;
   margin-top: 0;
+  text-transform: none;
 }
 h1 {
   font-size: 1.5em;
@@ -54,11 +55,11 @@ h2 {
 	font-size: 1.15em;
   margin-top: 1.5em;
 	margin-bottom: 1em;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 h3 {
 	font-size: 1em;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
   margin-top: 1.75em;
 	margin-bottom: 1.25em;
 	text-align: left;
@@ -67,19 +68,19 @@ h3 {
 h4 {
 	font-size: 0.9em;
 	font-weight: 600;
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 	color: #6c64ad;
 }
 h5 {
 	font-size: 0.7em;
 	font-weight: 400;
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 	color: #6c64ad;
 }
 h6 {
 	font-size: 0.6em;
 	font-weight: 400;
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 	color: #6c64ad;
 }
 ol.alphalist {
@@ -653,6 +654,10 @@ abandon .bcc-box in favor of pressbooks' native styling.
   margin: -2% -3% 15px;
   padding: 15px 0;
   text-align: center;
+  text-transform: uppercase;
+}
+.textbox h3 {
+  text-transform: uppercase;
 }
 .bcc-box.bcc-highlight h3 {
   border-top-left-radius: 4px;
@@ -848,7 +853,7 @@ span.small.xhtml {
 }
 .entry-title {
 	text-align: left;
-  text-transform: uppercase;
+  text-transform: none;
 	font-size: 1.5em;
 	margin-top: 0;
   margin-bottom: 0;
