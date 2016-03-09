@@ -1204,15 +1204,6 @@ ul.lti-mapping {
   #wrap {
     padding-top: 0;
   }
-  .lti-btn-text {
-    display: none;
-  }
-  .lti-btn-arrow {
-    display: block;
-  }
-  #lti-prev, #lti-next {
-    width: auto;
-  }
 }
 @media screen and (max-width: 620px) {
 	.alt-formats {
@@ -1244,4 +1235,13 @@ ul.lti-mapping {
 		float: none;
 		margin: 0 auto;
 	}
+  .lti-btn-text {
+    display: none;
+  }
+  .lti-btn-arrow {
+    display: block;
+  }
+  #lti-prev, #lti-next {
+    width: auto;
+  }
 }
