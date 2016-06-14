@@ -22,7 +22,7 @@ if ( is_front_page() ) {
 	echo pbt_get_microdata_meta_elements();
 }
 ?>
-<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.png" />
+<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
 	global $page, $paged;
 	wp_title( '|', true, 'right' );

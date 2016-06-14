@@ -26,6 +26,7 @@ const VERSION = '0.1';
 
 function init() {
 	add_action( 'init', '\Candela\Utility\wp_init' );
+	add_action( 'init', '\Candela\Utility\add_admin_theme' );
 	add_action( 'wp_enqueue_style', '\Candela\Utility\register_child_theme' );
 	add_filter( 'allowed_themes', '\Candela\Utility\add_theme', 12 );
 	add_filter( 'gettext', '\Candela\Utility\gettext', 20, 3 );
@@ -36,11 +37,67 @@ function init() {
 	add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 	add_action( 'custom_metadata_manager_init_metadata', '\Candela\Utility\add_meta_boxes' );
 
-
 	add_filter( 'admin_footer_text', '\Candela\Utility\add_footer_link' );
 	add_action( 'admin_bar_menu', '\Candela\Utility\replace_menu_bar_branding', 11 );
+	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
+
+	add_filter( 'custom_post_types', '\Candela\Utility\import_custom_post_types' );
+	add_filter( 'custom_taxonomies', '\Candela\Utility\import_custom_taxonomies' );
+	add_filter( 'custom_terms', '\Candela\Utility\get_glossary_groups' );
+}
+
+/*
+ * Add Admin Theme
+ */
+function add_admin_theme() {
+
+	add_action( 'admin_enqueue_scripts', '\Candela\Utility\enqueue_admin_stylesheet' );
+	add_action( 'login_enqueue_scripts', '\Candela\Utility\enqueue_admin_stylesheet' );
+	add_action( 'do_meta_boxes', '\Candela\Utility\declutter_admin_dashboard' );
+
+}
+
+/*
+ * Enqueues Admin Area Stylesheet
+ */
+function enqueue_admin_stylesheet() {
+
+  wp_enqueue_style( 'admin-theme', plugins_url( 'assets/css/pbj-admin.css', __FILE__ ) );
+
+}
+
+/*
+ * Removes Pressbooks Newsfeed widget from the Admin Dashboard
+ */
+function declutter_admin_dashboard() {
+
+  remove_meta_box( 'pb_dashboard_widget_blog', 'dashboard', 'side' );
+  remove_meta_box( 'pb_dashboard_widget_blog', 'dashboard-network', 'side' );
+
+}
+
+/*
+ * Adds several custom quicktags to the text view in the editor
+ * Ex: QTags.addButton( id, display, arg1, arg2, access_key, title, priority, instance );
+ */
+function lumen_add_quicktags() {
+  if (wp_script_is('quicktags')) { ?>
+
+    <script type="text/javascript">
+      QTags.addButton( 'ol-decimal', 'ol 1', '<ol style="list-style-type: decimal;">\n', '</ol>\n', '.', 'Decimal', 91 );
+      QTags.addButton( 'ol-decimal-leading-zero', 'ol 01', '<ol style="list-style-type: decimal-leading-zero;">\n', '</ol>\n', '0', 'Leading Zero', 92 );
+      QTags.addButton( 'ol-upper-alpha', 'ol A', '<ol style="list-style-type: upper-alpha;">\n', '</ol>\n', 'A', 'Upper Alpha', 93 );
+      QTags.addButton( 'ol-lower-alpha', 'ol a', '<ol style="list-style-type: lower-alpha;">\n', '</ol>\n', 'a', 'Lower Alpha', 94 );
+      QTags.addButton( 'ol-upper-roman', 'ol I', '<ol style="list-style-type: upper-roman;">\n', '</ol>\n', 'I', 'Upper Roman', 95 );
+      QTags.addButton( 'ol-lower-roman', 'ol i', '<ol style="list-style-type: lower-roman;">\n', '</ol>\n', 'i', 'Lower Roman', 96 );
+      QTags.addButton( 'ul-disc', 'ul disc', '<ul style="list-style-type: disc;">\n', '</ul>\n', 'd', 'Disc', 80 );
+      QTags.addButton( 'ul-circle', 'ul circle', '<ul style="list-style-type: circle;">\n', '</ul>\n', 'c', 'Circle', 81 );
+      QTags.addButton( 'ul-square', 'ul square', '<ul style="list-style-type: square;">\n', '</ul>\n', 's', 'Square', 82 );
+    </script>
+
+<?php }
 }
 
 function gettext( $translated_text, $text, $domain ) {
@@ -93,22 +150,34 @@ function remove_pressbooks_branding() {
 	remove_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\replace_menu_bar_branding', 11 );
 }
 
+/*
+ * Initializes registeration of book themes and oembed provider list
+ */
 function wp_init() {
 	register_theme();
 	register_oembed_providers();
 }
 
+/*
+ * Registers book themes
+ */
 function register_theme() {
 	register_theme_directory( __DIR__ . '/themes' );
 	wp_register_style( 'candela', __DIR__ . '/themes/candela/style.css', array( 'pressbooks' ), VERSION, 'screen' );
-	wp_register_style( 'candela-clean', __DIR__ . '/themes/candela-clean/style.css', array( 'pressbooks' ), VERSION, 'screen' );
+	wp_register_style( 'bombadil', __DIR__ . '/themes/bombadil/style.css', array( 'pressbooks' ), VERSION, 'screen' );
 }
 
+/*
+ * Enqueue styles for book themes
+ */
 function register_child_theme() {
 	wp_enqueue_style( 'candela' );
-	wp_enqueue_style( 'candela-clean' );
+	wp_enqueue_style( 'bombadil' );
 }
 
+/*
+ * Add registered themes to the list of Pressbooks book themes
+ */
 function add_theme( $themes ) {
 	$merge_themes = array();
 
@@ -119,7 +188,7 @@ function add_theme( $themes ) {
 				$merge_themes[$key] = 1;
 			}
 		}
-		// add our theme
+		// add our themes
 		$themes = array_merge( $themes, $merge_themes );
 	}
 	return $themes;
@@ -199,7 +268,7 @@ function add_footer_link() {
 
 	printf(
 		'<p id="footer-left" class="alignleft">
-		<span id="footer-thankyou">%s <a href="http://lumenlearning.com">Candela</a>
+		<span id="footer-thankyou">%s <a href="http://lumenlearning.com">Lumen Learning</a>
 		</span>
 		</p>',
 		__( 'Powered by', 'lumen' )
@@ -318,7 +387,7 @@ HTML;
  */
 function pressbooks_new_blog() {
 	// Change to a different theme
-	switch_theme( 'candela' );
+	switch_theme( 'bombadil' );
 
 	// Set copyright to display by default
 	$options = get_option( 'pressbooks_theme_options_global' );
@@ -358,43 +427,211 @@ function pressbooks_new_book_info( $post_id ) {
 }
 
 /**
- * Add metadata information for Candela.
+ * Defines Lumen Course Information metabox
  */
-function add_meta_boxes() {
-	x_add_metadata_group( 'candela-book-information', 'metadata', array(
-		'label' => __( 'Candela Book Information', 'pressbooks' ),
+function lumen_course_info_meta_box() {
+
+	x_add_metadata_group( $group = 'lumen-course-information', 'metadata', array(
+		'label' => __( 'Lumen Course Information', 'pressbooks' ),
 		'priority' => 'high',
 	) );
 
 	$fields = array(
-		'candela-course-id' => array(
-			'label' => __('Course Id'),
-		),
-		'candela-faculty-first-name' => array(
-			'label' => __('Faculty First Name'),
-		),
-		'candela-faculty-last-name' => array(
-			'label' => __('Faculty Last Name'),
-		),
-		'candela-year' => array(
-			'label' => __('Year'),
-		),
-		'candela-semsester' => array(
-			'label' => __('Semester'),
-			'description' => __(''),
+		'candela-credit-statement' => array(
+			'label' => __('Credit Statement'),
+			'field_type' => 'textarea',
+			'description' => __('A short acknowledgement of institutions, funders and/or contributors responsible for developing the course. This will be displayed on the Table of Contents.'),
 		),
 		'candela-previous-textbook-cost' => array(
 			'label' => __('Previous Textbook Cost'),
-			'description' => __('Previous textbook cost rounded down to the nearest dollar.'),
+			'description' => __('Previous textbook cost rounded down to the nearest dollar. This information is not shown in the public view of the course.'),
 		),
 	);
 
+	render_meta_box_fields( $group, $fields );
+
+}
+
+/**
+ * Defines Cover Image Attribution metabox
+ */
+function cover_image_attribution_meta_box() {
+
+	x_add_metadata_group( $group = 'cover-image-attributions', 'metadata', array(
+		'label' => __( 'Cover Image Attributions' ),
+		'priority' => 'low',
+	) );
+
+	$fields = array(
+		'attribution-type' => array(
+			'label' => __( 'Type' ),
+			'field_type' => 'select',
+			'values' => array(
+				'' => 'Choose citation type',
+				'original' => 'CC licensed content, Original',
+				'cc' => 'CC licensed content, Shared previously',
+				'cc-attribution' => 'CC licensed content, Specific attribution',
+				'copyrighted_video' => 'All rights reserved content',
+				'pd' => 'Public domain content',
+				'lumen' => 'Lumen Learning authored content'
+			)
+		),
+		'attribution-description' => array(
+			'label' => __( 'Description' ),
+		),
+		'attribution-author' => array(
+			'label' => __( 'Author' ),
+		),
+		'attribution-organization' => array(
+			'label' => __( 'Organization' ),
+		),
+		'attribution-url' => array(
+			'label' => __( 'URL' ),
+		),
+		'attribution-project' => array(
+			'label' => __( 'Project' ),
+		),
+		'attribution-licensing' => array(
+			'label' => __( 'Licensing' ),
+			'field_type' => 'select',
+			'values' => array(
+				'' => 'Choose licensing',
+				'pd' => 'Public Domain: No Known Copyright',
+				'cc0' => 'CC0: No Rights Reserved',
+				'cc-by' => 'CC BY: Attribution',
+				'cc-by-sa' => 'CC BY-SA: Attribution-ShareAlike',
+				'cc-by-nd' => 'CC BY-ND: Attribution-NoDerivatives',
+				'cc-by-nc' => 'CC BY-NC: Attribution-NonCommercial',
+				'cc-by-nc-sa' => 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike',
+				'cc-by-nc-nd' => 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives',
+			),
+		),
+		'attribution-license-terms' => array(
+			'label' => __( 'License Terms' ),
+		)
+	);
+
+	render_meta_box_fields( $group, $fields );
+
+}
+
+/**
+ * Helper function for rendering metafields for metabox groups
+ */
+function render_meta_box_fields( $group, $fields ) {
+
 	foreach ($fields as $key => $info) {
-		$info['group'] = 'candela-book-information';
+		$info['group'] = $group;
 		x_add_metadata_field( $key, 'metadata', $info);
 	}
 
+}
+
+/**
+ * Returns the attribution type (used for cover image licensing)
+ */
+function the_attribution_type( $type ) {
+
+	$types = array(
+		'original' => 'CC Licensed Content, Original',
+		'cc' => 'CC Licensed Content, Shared Previously',
+		'cc-attribution' => 'CC Licensed Content, Specific Attribution',
+		'copyrighted_video' => 'All Rights Reserved Content',
+		'pd' => 'Public Domain Content',
+		'lumen' => 'Lumen Learning Authored Content'
+	);
+
+	foreach( $types as $key => $value ) {
+		if ( $key === $type ) {
+			return $value;
+		}
+	}
+
+}
+
+/**
+ * Returns an array of the License long name (label) and creativecommons
+ * definition (link)
+ *
+ * @return array
+ */
+function the_attribution_license( $short_attribution ) {
+
+	$attributions = array(
+		'pd' =>  array(
+			'label' => __( 'Public Domain: No Known Copyright' ),
+			'link' => 'https://creativecommons.org/about/pdm',
+		),
+		'cc0' => array(
+			'label' => __( 'CC0: No Rights Reserved' ),
+			'link' => 'https://creativecommons.org/about/cc0',
+		),
+		'cc-by' => array(
+			'label' => __( 'CC BY: Attribution' ),
+			'link' => 'https://creativecommons.org/licenses/by/4.0/',
+		),
+		'cc-by-sa' => array(
+			'label' => __( 'CC BY-SA: Attribution-ShareAlike' ),
+			'link' => 'https://creativecommons.org/licenses/by-sa/4.0/',
+		),
+		'cc-by-nd' => array(
+			'label' => __( 'CC BY-ND: Attribution-NoDerivatives' ),
+			'link' => 'https://creativecommons.org/licenses/by-nd/4.0/',
+		),
+		'cc-by-nc' => array(
+			'label' => __( 'CC BY-NC: Attribution-NonCommercial' ),
+			'link' => 'https://creativecommons.org/licenses/by-nc/4.0/',
+		),
+		'cc-by-nc-sa' => array(
+			'label' => __( 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike' ),
+			'link' => 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+		),
+		'cc-by-nc-nd' => array(
+			'label' => __( 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives ' ),
+			'link' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+		),
+		'arr' => array(
+			'label' =>  __( 'All Rights Reserved' ),
+		),
+		'other' => array(
+			'label' => __( 'Other' ),
+		),
+	);
+
+	foreach ( $attributions as $key => $value ) {
+		if ( $key === $short_attribution ) {
+			return $value;
+		}
+	}
+
+}
+
+/**
+ * Add metadata information for Candela
+ */
+function add_meta_boxes() {
+
+	lumen_course_info_meta_box();
+	cover_image_attribution_meta_box();
+
   add_meta_box( 'nav-links', 'Edit Navigation Links', __NAMESPACE__ . '\nav_links', 'chapter', 'side', 'low' );
+
+}
+
+/**
+ * Return book info metadata
+ *
+ * @return array
+ */
+function candela_get_book_info_meta() {
+
+	$book_information = array();
+	$meta = new \Pressbooks\Metadata();
+	$data = $meta->getMetaPostMetadata();
+
+	$book_information = array_map('array_pop', $data);
+
+	return $book_information;
 }
 
 function nav_links() {
@@ -445,4 +682,55 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
+}
+
+/*
+ * Import custom post types using PB import
+ */
+function import_custom_post_types( $post_types ) {
+
+	$custom_post_types = array(
+		'glossary'
+	);
+
+	$post_types = array_merge( $custom_post_types, $post_types );
+
+	return $post_types;
+
+}
+
+/*
+ * Import custom taxonomies using PB import
+ */
+function import_custom_taxonomies( $taxonomies ) {
+
+	$custom_taxonomies = array(
+		'wpglossarygroup'
+	);
+
+	$taxonomies = array_merge( $custom_taxonomies, $taxonomies );
+
+	return $taxonomies;
+
+}
+
+/**
+ * Gets all glossary groups from xml export file (used during PB import)
+ *
+ * @param array $xml
+ * @return array of terms
+ */
+function get_glossary_groups( $terms ) {
+
+	$custom_terms = array();
+
+	foreach ( $terms as $term ) {
+
+		if ( 'wpglossarygroup' == $term['term_taxonomy'] ) {
+			array_push( $custom_terms, $term );
+		}
+	}
+
+	return $custom_terms;
+
 }
