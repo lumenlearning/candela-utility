@@ -42,10 +42,6 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
-
-	add_filter( 'custom_post_types', '\Candela\Utility\import_custom_post_types' );
-	add_filter( 'custom_taxonomies', '\Candela\Utility\import_custom_taxonomies' );
-	add_filter( 'custom_terms', '\Candela\Utility\get_glossary_groups' );
 }
 
 /*
@@ -682,55 +678,4 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
-}
-
-/*
- * Import custom post types using PB import
- */
-function import_custom_post_types( $post_types ) {
-
-	$custom_post_types = array(
-		'glossary'
-	);
-
-	$post_types = array_merge( $custom_post_types, $post_types );
-
-	return $post_types;
-
-}
-
-/*
- * Import custom taxonomies using PB import
- */
-function import_custom_taxonomies( $taxonomies ) {
-
-	$custom_taxonomies = array(
-		'wpglossarygroup'
-	);
-
-	$taxonomies = array_merge( $custom_taxonomies, $taxonomies );
-
-	return $taxonomies;
-
-}
-
-/**
- * Gets all glossary groups from xml export file (used during PB import)
- *
- * @param array $xml
- * @return array of terms
- */
-function get_glossary_groups( $terms ) {
-
-	$custom_terms = array();
-
-	foreach ( $terms as $term ) {
-
-		if ( 'wpglossarygroup' == $term['term_taxonomy'] ) {
-			array_push( $custom_terms, $term );
-		}
-	}
-
-	return $custom_terms;
-
 }

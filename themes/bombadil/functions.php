@@ -1,5 +1,4 @@
 <?php
-// add_filter( 'https_local_ssl_verify', '__return_false' ); // Uncomment for xml imports (testing)
 
 /**
  * Enqueues Bombadil Stylesheets
@@ -39,6 +38,12 @@ function bombadil_theme_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'bombadil_theme_scripts' );
+
+function bombadil_color_picker_assets( $hook ) {
+  wp_enqueue_style( 'wp-color-picker' );
+  wp_enqueue_script( 'color-picker', plugins_url('js/color-pick.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+}
+add_action( 'admin_enqueue_scripts', 'bombadil_color_picker_assets' );
 
 /**
  * Checks to make sure the main script has been enqueued and then load the
@@ -369,6 +374,265 @@ function show_logo() {
   return choose_logo( 'navigation_hide_logo' );
 
 }
+
+function toc_header_logo() {
+
+  $appearance = get_option( 'pressbooks_theme_options_appearance' );
+  $image      = $appearance['toc_header_logo'];
+  $link       = $appearance['toc_header_link'];
+
+  if ( $appearance['toc_header_logo'] ) {
+    if ( $appearance['toc_header_link'] ) {
+      echo '<a href="' . $link . '"><img class="toc-header-logo" src="' . $image . '" /></a>';
+    } else {
+      echo '<img class="toc-header-logo" src="' . $image . '" />';
+    }
+  }
+
+}
+
+function header_logo() {
+
+  $appearance = get_option( 'pressbooks_theme_options_appearance' );
+  $image      = $appearance['header_logo'];
+  $link       = $appearance['header_link'];
+
+  if ( $appearance['header_logo'] ) {
+    if ( $appearance['header_link'] ) {
+      echo '<a href="' . $link . '"><img class="header-logo" src="' . $image . '" /><a/>';
+    } else {
+      echo '<a href="' . get_home_url() . '"><img class="header-logo" src="' . $image . '" /><a/>';
+    }
+  } else {
+    echo '<div class="pressbooks-logo">Lumen</div>';
+  }
+
+}
+
+/**
+ *
+ */
+function header_color() {
+
+  $appearance = get_option( 'pressbooks_theme_options_appearance' );
+
+  if ( ( isset( $appearance['header_color'] ) && strlen( $appearance['header_color'] ) !== 0 ) ) {
+    echo ' style="background-color: ' . $appearance['header_color'] . '"';
+  }
+
+}
+
+function pressbooks_theme_options_appearance_init() {
+
+  $_page = $_option = 'pressbooks_theme_options_appearance';
+  $_section = 'appearance_options_section';
+  $defaults = array(
+    'header_color' => 0
+  );
+
+  if ( false == get_option( $_option ) ) {
+    add_option( $_option, $defaults );
+  }
+
+  add_settings_section(
+    $_section,
+    __( 'Appearance Options', 'pressbooks' ),
+    'pressbooks_theme_appearance_option_callback',
+    $_page
+  );
+
+  add_settings_field(
+  'toc_header_logo',
+  __( 'ToC Header Logo', 'pressbooks' ),
+  'pressbooks_theme_toc_header_logo_callback',
+  $_page,
+  $_section,
+  array(
+    __( 'Image file name (include file extension)', 'pressbooks' )
+    )
+  );
+
+  add_settings_field(
+  'toc_header_link',
+  __( 'ToC Header Link', 'pressbooks' ),
+  'pressbooks_theme_toc_header_link_callback',
+  $_page,
+  $_section,
+  array(
+    __( 'Link to navigate to when logo in table of contents is clicked', 'pressbooks' )
+    )
+  );
+
+  add_settings_field(
+    'header_logo',
+    __( 'Header Logo', 'pressbooks' ),
+    'pressbooks_theme_header_logo_callback',
+    $_page,
+    $_section,
+    array(
+      __( 'Image file name (include file extension)', 'pressbooks' )
+    )
+  );
+
+  add_settings_field(
+    'header_link',
+    __( 'Header Link', 'pressbooks' ),
+    'pressbooks_theme_header_link_callback',
+    $_page,
+    $_section,
+    array(
+      __( 'Links to Table of Contents page if left blank', 'pressbooks' )
+    )
+  );
+
+  add_settings_field(
+  'header_color',
+  __( 'Header Color', 'pressbooks' ),
+  'pressbooks_theme_header_color_callback',
+  $_page,
+  $_section,
+  array(
+    __( 'Color Hex Code', 'pressbooks' )
+    )
+  );
+
+  register_setting(
+    $_option,
+    $_option,
+    'pressbooks_theme_options_appearance_sanitize'
+  );
+
+}
+add_action( 'admin_init', 'pressbooks_theme_options_appearance_init' );
+
+function pressbooks_theme_appearance_option_callback() {
+
+  echo '<p>' . __( 'These options allow customizaton of the page header.', 'pressbooks' ) . '</p>';
+
+}
+
+function pressbooks_theme_toc_header_logo_callback( $args ) {
+
+  $options = get_option( 'pressbooks_theme_options_appearance' );
+
+  if ( ! isset( $options['toc_header_logo'] ) ) {
+    $options['toc_header_logo'] = '';
+  }
+
+  $html = '<input type="text" id="toc_header_logo" name="pressbooks_theme_options_appearance[toc_header_logo]" value="' . $options['toc_header_logo'] . '" /> ';
+  $html .= '<label for="toc_header_logo">' . $args[0] . '</label><br />';
+
+  echo $html;
+
+}
+
+function pressbooks_theme_toc_header_link_callback( $args ) {
+
+  $options = get_option( 'pressbooks_theme_options_appearance' );
+
+  if ( ! isset( $options['toc_header_link'] ) ) {
+    $options['toc_header_link'] = '';
+  }
+
+  $html = '<input type="text" id="toc_header_link" name="pressbooks_theme_options_appearance[toc_header_link]" value="' . $options['toc_header_link'] . '" /> ';
+  $html .= '<label for="toc_header_link">' . $args[0] . '</label><br />';
+
+  echo $html;
+
+}
+
+function pressbooks_theme_header_logo_callback( $args ) {
+
+  $options = get_option( 'pressbooks_theme_options_appearance' );
+
+  if ( ! isset( $options['header_logo'] ) ) {
+    $options['header_logo'] = '';
+  }
+
+  $html = '<input type="text" id="header_logo" name="pressbooks_theme_options_appearance[header_logo]" value="' . $options['header_logo'] . '" /> ';
+  $html .= '<label for="header_logo">' . $args[0] . '</label><br />';
+
+  echo $html;
+
+}
+
+function pressbooks_theme_header_link_callback( $args ) {
+
+  $options = get_option( 'pressbooks_theme_options_appearance' );
+
+  if ( ! isset( $options['header_link'] ) ) {
+    $options['header_link'] = '';
+  }
+
+  $html = '<input type="text" id="header_link" name="pressbooks_theme_options_appearance[header_link]" value="' . $options['header_link'] . '" /> ';
+  $html .= '<label for="header_link">' . $args[0] . '</label><br />';
+
+  echo $html;
+
+}
+
+function pressbooks_theme_header_color_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_appearance' );
+
+	if ( ! isset( $options['header_color'] ) ) {
+		$options['header_color'] = '#007FAB';
+	}
+
+	$html = '<input type="text" id="header_color" name="pressbooks_theme_options_appearance[header_color]" value="' . $options['header_color'] . '" /> ';
+
+	echo $html;
+
+}
+
+function pressbooks_theme_options_appearance_sanitize( $input ) {
+
+	$options = get_option( 'pressbooks_theme_options_appearance' );
+
+  foreach ( array( 'toc_header_logo' ) as $val ) {
+    if ( ! isset( $input[$val] ) ) {
+      $options[$val] = '';
+    } else {
+      $options[$val] = $input[$val];
+    }
+  }
+
+  foreach ( array( 'toc_header_link' ) as $val ) {
+    if ( ! isset( $input[$val] ) ) {
+      $options[$val] = '';
+    } else {
+      $options[$val] = $input[$val];
+    }
+  }
+
+  foreach ( array( 'header_logo' ) as $val ) {
+    if ( ! isset( $input[$val] ) ) {
+      $options[$val] = '';
+    } else {
+      $options[$val] = $input[$val];
+    }
+  }
+
+  foreach ( array( 'header_link' ) as $val ) {
+    if ( ! isset( $input[$val] ) ) {
+      $options[$val] = '';
+    } else {
+      $options[$val] = $input[$val];
+    }
+  }
+
+  foreach ( array( 'header_color' ) as $val ) {
+    if ( ! isset( $input[$val] ) ) {
+      $options[$val] = '';
+    } else {
+      $options[$val] = $input[$val];
+    }
+  }
+
+  return $options;
+
+}
+
 
 /* ------------------------------------------------------------------------ *
  * Navigation Options Tab
@@ -705,7 +969,8 @@ function pressbooks_theme_options_display() { ?>
 		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
 		<?php } ?>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
-		<a href="?page=pressbooks_theme_options&tab=navigation_options" class="nav-tab <?php echo $active_tab == 'navigation_options' ? 'nav-tab-active' : ''; ?>">Navigation Options</a>
+    <a href="?page=pressbooks_theme_options&tab=navigation_options" class="nav-tab <?php echo $active_tab == 'navigation_options' ? 'nav-tab-active' : ''; ?>">Navigation Options</a>
+    <a href="?page=pressbooks_theme_options&tab=appearance_options" class="nav-tab <?php echo $active_tab == 'appearance_options' ? 'nav-tab-active' : ''; ?>">Appearance Options</a>
 		</h2>
 
 		<!-- Create the form that will be used to render our options -->
@@ -728,6 +993,9 @@ function pressbooks_theme_options_display() { ?>
 			} elseif( $active_tab == 'navigation_options' ) {
 				settings_fields( 'pressbooks_theme_options_navigation' );
 				do_settings_sections( 'pressbooks_theme_options_navigation' );
+      } elseif( $active_tab == 'appearance_options' ) {
+        settings_fields( 'pressbooks_theme_options_appearance' );
+				do_settings_sections( 'pressbooks_theme_options_appearance' );
 			} ?>
 			<?php submit_button(); ?>
 		</form>

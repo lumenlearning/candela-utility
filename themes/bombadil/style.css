@@ -472,7 +472,7 @@ nav {
 	font-size: 1.6em;
 	text-transform: none;
   color: #fff;
-	padding: 0 0 0 34px;
+  padding: 0;
 	height: 70px;
 	line-height: 70px;
 	white-space: nowrap;
@@ -517,7 +517,7 @@ nav {
   font-size: 14px;
   color: #6d6d6d;
   float: left;
-	padding-left: 30px;
+	/*padding-left: 30px;*/
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -947,22 +947,6 @@ div#wrap {
   color: #000;
 }
 
-/* WP GLOSSARY */
-.wp-glossary.wpg-tooltip {
-  border-bottom: 1px dotted;
-  cursor: help;
-}
-.translation .wp-glossary.wpg-tooltip {
-  border-bottom: none;
-  cursor: pointer;
-}
-ul.glossary-list {
-  list-style-type: none;
-}
-li.glossary-item {
-  font-weight: bold;
-}
-
 /* ------------------------------------------------------------------------ *
  * BUTTONS
  * ------------------------------------------------------------------------ */
@@ -1110,6 +1094,20 @@ ul.lti-mapping {
 }
 #next {
   float: right;
+}
+.header-logo {
+  height: 50px;
+  background-color: transparent !important;
+  padding: 0;
+  margin-bottom: 6px;
+  vertical-align: middle;
+}
+.toc-header-logo {
+  height: 60px;
+  display: block;
+  margin: auto;
+  background-color: transparent !important;
+  padding: 0;
 }
 
 

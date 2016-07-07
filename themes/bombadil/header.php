@@ -65,9 +65,11 @@
 <body <?php body_class(); if( wp_title( '', false ) != '' ) { print ' id="' . str_replace( ' ', '', strtolower( wp_title( '', false ) ) ) . '"'; } ?>>
 
   <?php if ( is_front_page() ) : ?>
+    <?php toc_header_logo(); ?>
     <!-- Front Page -->
 		<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher audience educationalAlignment educationalUse interactivityType learningResourceType typicalAgeRange"></span>
-		<div class="book-info-container hfeed">
+
+    <div class="book-info-container hfeed" <?php header_color(); ?>>
 
 	<?php else : ?>
     <!-- Not Front Page -->
@@ -76,6 +78,7 @@
       <?php if ( show_nav_container() ) { ?>
         <!-- Nav Container -->
         <div class="nav-container">
+
       <?php } ?>
 
       <?php if ( show_header() ) { ?>
@@ -85,9 +88,9 @@
           </div>
 
           <!-- Nav Bar -->
-          <nav role="navigation">
+          <nav role="navigation" <?php header_color(); ?>>
             <div class="header-nav">
-              <div class="pressbooks-logo">Lumen</div>
+              <?php header_logo(); ?>
 
               <?php if ( show_header_link() ) { ?>
                 <a class="book-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
