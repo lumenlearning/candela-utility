@@ -42,6 +42,7 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
+	add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url', 10, 2 );
 }
 
 /*
@@ -678,4 +679,8 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
+}
+
+function cover_image_url( $cover_url1, $cover_url2 ) {
+	return $cover_url2;
 }
