@@ -15,6 +15,8 @@
 
 namespace Candela\Utility;
 
+require_once ( __DIR__ . '/includes/modules/import/imscc/class-pb-imscc.php' );
+
 // If file is called directly, abort.
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -42,6 +44,10 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
+
+	add_filter( 'pb_initialize_import', array( '\Pressbooks\Modules\Import\IMSCC\IMSCC', 'init' ) );
+	add_filter( 'pb_select_import_type', '\Candela\Utility\set_import_select_value' );
+	add_filter( 'pb_import_file_types', '\Candela\Utility\add_imscc_import_file_type' );
 }
 
 /*
@@ -678,4 +684,28 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
+}
+
+/**
+ * Adds IMS-CC (Common Cartridge) as an option in import select field.
+ *
+ * @param array $options
+ *
+ * @return array
+ */
+function set_import_select_value( array $options ) {
+	$options['imscc'] = __( 'IMS-CC (Common Cartridge)' );
+	return $options;
+}
+
+/**
+ * Adds imscc to list of allowed file types.
+ *
+ * @param array $file_types
+ *
+ * @return array
+ */
+function add_imscc_import_file_type( array $file_types ) {
+	$file_types['imscc'] = 'application/zip';
+	return $file_types;
 }
