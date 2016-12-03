@@ -42,6 +42,8 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
+
+	add_filter( 'pb_select_latex_renderer', '\Candela\Utility\add_select_latex_renderers' );
 }
 
 /*
@@ -678,4 +680,18 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
+}
+
+/**
+ * Adds latex renderer options to select field.
+ *
+ * @param array $renderers
+ *
+ * @return array
+ */
+function add_select_latex_renderers( array $renderers ) {
+	$renderers['katex'] = __( 'KaTeX + MathJax in-browser', 'pb-latex' );
+	$renderers['Automattic_Latex_MOMCOM'] = __( 'MyOpenMath.com MimeTeX server', 'pb-latex' );
+	$renderers['mathjax'] = __( 'MathJax in-browser', 'pb-latex' );
+	return $renderers;
 }
