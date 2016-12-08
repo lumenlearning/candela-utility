@@ -43,7 +43,11 @@ function init() {
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
 
-	add_filter( 'pb_select_latex_renderer', '\Candela\Utility\add_select_latex_renderers' );
+	add_filter( 'pb_require_latex', '\Candela\Utility\latex_init' );
+	add_filter( 'pb_add_latex_renderer_option', '\Candela\Utility\add_latex_renderer_options' );
+	add_filter( 'pb_latex_renderers', '\Candela\Utility\add_latex_renderer_types' );
+	add_action( 'pb_enqueue_latex_scripts', '\Candela\Utility\latex_enqueue_scripts' );
+	add_filter( 'pb_add_latex_config_scripts', '\Candela\Utility\latex_config_scripts' );
 }
 
 /*
@@ -685,13 +689,110 @@ function get_pb_page_id( $what = 'next' ) {
 /**
  * Adds latex renderer options to select field.
  *
+ * @param array $options
+ *
+ * @return array
+ */
+function add_latex_renderer_options( array $options ) {
+	$options['katex'] = __( 'KaTeX + MathJax in-browser', 'pb-latex' );
+	$options['Automattic_Latex_MOMCOM'] = __( 'MyOpenMath.com MimeTeX server', 'pb-latex' );
+	$options['mathjax'] = __( 'MathJax in-browser', 'pb-latex' );
+	return $options;
+}
+
+/**
+ * Adds latex renderers to current list of latex renderers.
+ *
  * @param array $renderers
  *
  * @return array
  */
-function add_select_latex_renderers( array $renderers ) {
-	$renderers['katex'] = __( 'KaTeX + MathJax in-browser', 'pb-latex' );
-	$renderers['Automattic_Latex_MOMCOM'] = __( 'MyOpenMath.com MimeTeX server', 'pb-latex' );
-	$renderers['mathjax'] = __( 'MathJax in-browser', 'pb-latex' );
+function add_latex_renderer_types( array $renderers ) {
+	$renderers['katex'] = 'katex';
+	$renderers['Automattic_Latex_MOMCOM'] = 'momcom';
+	$renderers['mathjax'] = 'mathjax';
 	return $renderers;
+}
+
+/**
+ * Enqueues necessary scripts for a given latex render method.
+ *
+ * @param string $methods
+ */
+function latex_enqueue_scripts( $method ) {
+	if ( 'katex' == $method ) {
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		wp_enqueue_script( 'pb_asciimathteximg', plugins_url( 'ASCIIMathTeXImg.js', __FILE__ ) );
+		wp_enqueue_script( 'pb_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
+		wp_enqueue_style( 'pb_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
+		wp_enqueue_script( 'pb_katex_autorender', plugins_url( 'auto-render.js', __FILE__ ), array( 'pb_katex' , 'pb_mathjax' , 'jquery') );
+		add_shortcode( 'latex', '\Candela\Utility\katex_short_code' );
+	} elseif ( 'mathjax' == $method ) {
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		add_shortcode( 'latex', '\Candela\Utility\katex_short_code' );
+	}
+}
+
+/**
+ * Requires the necessary class for a given latex render method.
+ *
+ * @param string $class
+ */
+function latex_init( $class ) {
+	if ( 'katex' == $class ) {
+		require_once ( __DIR__ . '/symbionts/pressbooks-latex/katex.php' );
+	} elseif ( 'mathjax' == $class ) {
+		require_once ( __DIR__ . '/symbionts/pressbooks-latex/mathjax.php' );
+	} elseif ( 'Automattic_Latex_MOMCOM' == $class ) {
+		require_once ( __DIR__ . '/symbionts/pressbooks-latex/momcom.php' );
+	}
+}
+
+/**
+ * Echos the scripts in the head of the page needed for a given latex
+ * render method.
+ *
+ * @param string $method
+ */
+function latex_config_scripts( $method ) {
+	if ( 'katex' == $method ) {
+		echo '<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				skipStartupTypeset: true,
+				TeX: { extensions: ["cancel.js", "mhchem.js"] }
+			});
+		</script>
+		<script type="text/javascript">
+			MathJax.Hub.Configured();
+		</script>';
+	} elseif ( 'mathjax' == $method ) {
+		echo '<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				TeX: { extensions: ["cancel.js", "mhchem.js"] },
+				tex2jax: {inlineMath: [["[latex]","[/latex]"]] }
+			});
+		</script>
+		<script type="text/javascript">
+			MathJax.Hub.Configured();
+		</script>';
+	}
+}
+
+/**
+ * Katex shortcode
+ *
+ * @param $_atts, $latex
+ *
+ * @return shortcode
+ */
+function katex_short_code( $_atts, $latex ) {
+	$latex = preg_replace( array( '#<br\s*/?>#i', '#</?p>#i' ), ' ', $latex );
+
+	$latex = str_replace(
+		array( '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ), array( '"', '``', "''", "'", "'", "'", "'", '&', '&', ' ', ' ', ' ', '-' ), $latex
+	);
+
+	return "[latex]" . $latex . "[/latex]";
 }
