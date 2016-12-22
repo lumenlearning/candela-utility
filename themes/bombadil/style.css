@@ -704,6 +704,22 @@ abandon .bcc-box in favor of pressbooks' native styling.
 .textbox h3 {
   text-transform: uppercase;
 }
+.textbox.tryit h3 {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #5f3f7d;
+  color: #fff;
+  margin: -2% -3% 15px;
+  padding: 15px 0;
+  text-align: center;
+}
+.textbox.tryit {
+  background-color: #f7eefc;
+  border-radius: 4px;
+  margin-top: 15px;
+  padding: 2% 3%;
+  float: none;
+}
 .bcc-box.bcc-highlight h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -1108,6 +1124,9 @@ ul.lti-mapping {
   margin: auto;
   background-color: transparent !important;
   padding: 0;
+}
+.page-template-default {
+  z-index: -1;
 }
 
 
