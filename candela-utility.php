@@ -2,27 +2,46 @@
 
 /**
  * Candela Utility
- * @wordpress-plugin
- * Plugin Name:       Candela Utility
- * Description:       Candela helper plugin to manage additional config and bootstrapping.
- * Version:           0.1
- * Author:            Lumen Learning
- * Author URI:        http://lumenlearning.com
- * Text Domain:       lumen
- * License:           GPLv2 or later
+ * Plugin Name: Candela Utility
+ * Description: Candela Utility is a helper plugin that manages additional configuration and bootstrapping on top of Pressbooks.
+ * Version: 0.2
+ * Author: Lumen Learning
+ * Author URI: http://lumenlearning.com
+ * Text Domain: lumen
+ * License: GPLv2 or later
  * GitHub Plugin URI: https://github.com/lumenlearning/candela
  */
 
 namespace Candela\Utility;
 
-// If file is called directly, abort.
 if ( ! defined( 'ABSPATH' ) ) {
-	die();
+	return;
 }
 
-init();
+// -----------------------------------------------------------------------------
+// SETUP
+// -----------------------------------------------------------------------------
 
-const VERSION = '0.1';
+if ( ! defined( 'CU_PLUGIN_VERSION' ) ) {
+	define( 'CU_PLUGIN_VERSION', '0.2' );
+}
+
+if ( ! defined( 'CU_PLUGIN_DIR' ) ) {
+	define( 'CU_PLUGIN_DIR', __DIR__ . '/' );
+}
+
+if ( ! defined( 'CU_PLUGIN_URL' ) ) {
+	define( 'CU_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+// -----------------------------------------------------------------------------
+// CLASS INCLUDES
+// -----------------------------------------------------------------------------
+
+include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
+
+
+init();
 
 function init() {
 	add_action( 'init', '\Candela\Utility\wp_init' );
@@ -159,8 +178,8 @@ function wp_init() {
  */
 function register_theme() {
 	register_theme_directory( __DIR__ . '/themes' );
-	wp_register_style( 'candela', __DIR__ . '/themes/candela/style.css', array( 'pressbooks' ), VERSION, 'screen' );
-	wp_register_style( 'bombadil', __DIR__ . '/themes/bombadil/style.css', array( 'pressbooks' ), VERSION, 'screen' );
+	wp_register_style( 'candela', __DIR__ . '/themes/candela/style.css', array( 'pressbooks' ), CU_PLUGIN_VERSION, 'screen' );
+	wp_register_style( 'bombadil', __DIR__ . '/themes/bombadil/style.css', array( 'pressbooks' ), CU_PLUGIN_VERSION, 'screen' );
 }
 
 /*
