@@ -38,6 +38,7 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 // CLASS INCLUDES
 // -----------------------------------------------------------------------------
 
+include CU_PLUGIN_DIR . 'includes/cu-admin.php';
 include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 
 
@@ -45,7 +46,6 @@ init();
 
 function init() {
 	add_action( 'init', '\Candela\Utility\wp_init' );
-	add_action( 'init', '\Candela\Utility\add_admin_theme' );
 	add_action( 'wp_enqueue_style', '\Candela\Utility\register_child_theme' );
 	add_filter( 'allowed_themes', '\Candela\Utility\add_theme', 12 );
 	add_filter( 'gettext', '\Candela\Utility\gettext', 20, 3 );
@@ -61,36 +61,6 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
-}
-
-/*
- * Add Admin Theme
- */
-function add_admin_theme() {
-
-	add_action( 'admin_enqueue_scripts', '\Candela\Utility\enqueue_admin_stylesheet' );
-	add_action( 'login_enqueue_scripts', '\Candela\Utility\enqueue_admin_stylesheet' );
-	add_action( 'do_meta_boxes', '\Candela\Utility\declutter_admin_dashboard' );
-
-}
-
-/*
- * Enqueues Admin Area Stylesheet
- */
-function enqueue_admin_stylesheet() {
-
-  wp_enqueue_style( 'admin-theme', plugins_url( 'assets/css/pbj-admin.css', __FILE__ ) );
-
-}
-
-/*
- * Removes Pressbooks Newsfeed widget from the Admin Dashboard
- */
-function declutter_admin_dashboard() {
-
-  remove_meta_box( 'pb_dashboard_widget_blog', 'dashboard', 'side' );
-  remove_meta_box( 'pb_dashboard_widget_blog', 'dashboard-network', 'side' );
-
 }
 
 /*
