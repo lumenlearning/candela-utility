@@ -126,3 +126,11 @@ $adminbar-input-background:      $white;
 .postbox#copyright {
   display: none;
 }
+
+.wrap .page-title-action {
+	color: $base-blue;
+}
+
+.wrap .page-title-action:hover {
+	border-color: $base-blue;
+}

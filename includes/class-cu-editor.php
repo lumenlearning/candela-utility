@@ -26,6 +26,8 @@ class Candela_Utility_Editor {
 		add_shortcode( 'reveal-answer', array( &$this, 'reveal_answer_shortcode' ) );
 		add_shortcode( 'hidden-answer', array( &$this, 'hidden_answer_shortcode' ) );
 
+		add_action( 'admin_print_footer_scripts', array( &$this, 'add_custom_quicktags' ) );
+
 	}
 
 	/**
@@ -150,6 +152,28 @@ class Candela_Utility_Editor {
 
 		return '<div id="q' . $atts['a'] . '" class="hidden-answer" style="' . $hidden_answer_style . '">' . do_shortcode($content) . '</div></div>';
 
+	}
+
+	/*
+	 * Adds several custom quicktags to the text view in the editor
+	 * Ex: QTags.addButton( id, display, arg1, arg2, access_key, title, priority, instance );
+	 */
+	function add_custom_quicktags() {
+	  if ( wp_script_is( 'quicktags' ) ) { ?>
+
+	    <script type="text/javascript">
+	      QTags.addButton( 'ol-decimal', 'ol 1', '<ol style="list-style-type: decimal;">\n', '</ol>\n', '.', 'Decimal', 91 );
+	      QTags.addButton( 'ol-decimal-leading-zero', 'ol 01', '<ol style="list-style-type: decimal-leading-zero;">\n', '</ol>\n', '0', 'Leading Zero', 92 );
+	      QTags.addButton( 'ol-upper-alpha', 'ol A', '<ol style="list-style-type: upper-alpha;">\n', '</ol>\n', 'A', 'Upper Alpha', 93 );
+	      QTags.addButton( 'ol-lower-alpha', 'ol a', '<ol style="list-style-type: lower-alpha;">\n', '</ol>\n', 'a', 'Lower Alpha', 94 );
+	      QTags.addButton( 'ol-upper-roman', 'ol I', '<ol style="list-style-type: upper-roman;">\n', '</ol>\n', 'I', 'Upper Roman', 95 );
+	      QTags.addButton( 'ol-lower-roman', 'ol i', '<ol style="list-style-type: lower-roman;">\n', '</ol>\n', 'i', 'Lower Roman', 96 );
+	      QTags.addButton( 'ul-disc', 'ul disc', '<ul style="list-style-type: disc;">\n', '</ul>\n', 'd', 'Disc', 80 );
+	      QTags.addButton( 'ul-circle', 'ul circle', '<ul style="list-style-type: circle;">\n', '</ul>\n', 'c', 'Circle', 81 );
+	      QTags.addButton( 'ul-square', 'ul square', '<ul style="list-style-type: square;">\n', '</ul>\n', 's', 'Square', 82 );
+	    </script>
+
+	<?php }
 	}
 
 }
