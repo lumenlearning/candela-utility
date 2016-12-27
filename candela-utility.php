@@ -38,7 +38,7 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 // CLASS INCLUDES
 // -----------------------------------------------------------------------------
 
-include CU_PLUGIN_DIR . 'includes/cu-admin.php';
+include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
 include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 
 
@@ -51,12 +51,12 @@ function init() {
 	add_filter( 'gettext', '\Candela\Utility\gettext', 20, 3 );
 	add_filter( 'gettext_with_context', '\Candela\Utility\gettext_with_context', 20, 4 );
 	add_action( 'admin_menu', '\Candela\Utility\adjust_admin_menu', 11);
-	add_action( 'plugins_loaded', '\Candela\Utility\remove_pressbooks_branding' );
+	// add_action( 'plugins_loaded', '\Candela\Utility\remove_pressbooks_branding' );
+	// add_filter( 'admin_footer_text', '\Candela\Utility\add_footer_link' );
 	add_action( 'pressbooks_new_blog', '\Candela\Utility\pressbooks_new_blog' );
 	add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 	add_action( 'custom_metadata_manager_init_metadata', '\Candela\Utility\add_meta_boxes' );
 
-	add_filter( 'admin_footer_text', '\Candela\Utility\add_footer_link' );
 	add_action( 'admin_bar_menu', '\Candela\Utility\replace_menu_bar_branding', 11 );
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
@@ -129,11 +129,11 @@ function gettext_with_context( $translated_text, $text, $context, $domain ) {
 	return $translated_text;
 }
 
-function remove_pressbooks_branding() {
-	remove_action( 'admin_head', '\PressBooks\Admin\Laf\add_feedback_dialogue' );
-	remove_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
-	remove_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\replace_menu_bar_branding', 11 );
-}
+// function remove_pressbooks_branding() {
+// 	remove_action( 'admin_head', '\PressBooks\Admin\Laf\add_feedback_dialogue' );
+// 	remove_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
+// 	remove_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\replace_menu_bar_branding', 11 );
+// }
 
 /*
  * Initializes registeration of book themes and oembed provider list
@@ -246,20 +246,20 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 }
 
 
-/**
- * Add a custom message in admin footer
- */
-function add_footer_link() {
-
-	printf(
-		'<p id="footer-left" class="alignleft">
-		<span id="footer-thankyou">%s <a href="http://lumenlearning.com">Lumen Learning</a>
-		</span>
-		</p>',
-		__( 'Powered by', 'lumen' )
-	);
-
-}
+// /**
+//  * Add a custom message in admin footer
+//  */
+// function add_footer_link() {
+//
+// 	printf(
+// 		'<p id="footer-left" class="alignleft">
+// 		<span id="footer-thankyou">%s <a href="http://lumenlearning.com">Lumen Learning</a>
+// 		</span>
+// 		</p>',
+// 		__( 'Powered by', 'lumen' )
+// 	);
+//
+// }
 
 /**
  * Filter embed_oembed_html.
