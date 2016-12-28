@@ -40,6 +40,7 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 
 include CU_PLUGIN_DIR . 'includes/cu-functions.php';
 include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
+include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
 include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
 include CU_PLUGIN_DIR . 'includes/cu-book-info.php';
 include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
@@ -48,54 +49,15 @@ include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 init();
 
 function init() {
-	add_action( 'init', '\Candela\Utility\wp_init' );
-	add_action( 'wp_enqueue_style', '\Candela\Utility\register_child_theme' );
-	add_filter( 'allowed_themes', '\Candela\Utility\add_theme', 12 );
+	add_action( 'init', '\Candela\Utility\wp2_init' );
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
 }
 
 /*
  * Initializes registeration of book themes and oembed provider list
  */
-function wp_init() {
-	register_theme();
+function wp2_init() {
 	register_oembed_providers();
-}
-
-/*
- * Registers book themes
- */
-function register_theme() {
-	register_theme_directory( __DIR__ . '/themes' );
-	wp_register_style( 'candela', __DIR__ . '/themes/candela/style.css', array( 'pressbooks' ), CU_PLUGIN_VERSION, 'screen' );
-	wp_register_style( 'bombadil', __DIR__ . '/themes/bombadil/style.css', array( 'pressbooks' ), CU_PLUGIN_VERSION, 'screen' );
-}
-
-/*
- * Enqueue styles for book themes
- */
-function register_child_theme() {
-	wp_enqueue_style( 'candela' );
-	wp_enqueue_style( 'bombadil' );
-}
-
-/*
- * Add registered themes to the list of Pressbooks book themes
- */
-function add_theme( $themes ) {
-	$merge_themes = array();
-
-	if ( \Pressbooks\Book::isBook() ) {
-		$registered_themes = search_theme_directories();
-		foreach ( $registered_themes as $key => $val ) {
-			if ( $val['theme_root'] == __DIR__ . '/themes' ) {
-				$merge_themes[$key] = 1;
-			}
-		}
-		// add our themes
-		$themes = array_merge( $themes, $merge_themes );
-	}
-	return $themes;
 }
 
 /**
