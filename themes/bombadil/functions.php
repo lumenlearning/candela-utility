@@ -377,35 +377,31 @@ function show_logo() {
 
 function toc_header_logo() {
 
-  $appearance = get_option( 'pressbooks_theme_options_appearance' );
-  $image      = $appearance['toc_header_logo'];
-  $link       = $appearance['toc_header_link'];
+	$appearance = get_option( 'pressbooks_theme_options_appearance' );
 
-  if ( $appearance['toc_header_logo'] ) {
-    if ( $appearance['toc_header_link'] ) {
-      echo '<a href="' . $link . '"><img class="toc-header-logo" src="' . $image . '" /></a>';
-    } else {
-      echo '<img class="toc-header-logo" src="' . $image . '" />';
-    }
-  }
+	if ( isset( $appearance['toc_header_logo'] ) ) {
+		if ( isset( $appearance['toc_header_link'] ) ) {
+			echo '<a href="' . $appearance['toc_header_link'] . '"><img class="toc-header-logo" src="' . $appearance['toc_header_logo'] . '" /></a>';
+		} else {
+			echo '<img class="toc-header-logo" src="' . $appearance['toc_header_logo'] . '" />';
+		}
+	}
 
 }
 
 function header_logo() {
 
-  $appearance = get_option( 'pressbooks_theme_options_appearance' );
-  $image      = $appearance['header_logo'];
-  $link       = $appearance['header_link'];
+	$appearance = get_option( 'pressbooks_theme_options_appearance' );
 
-  if ( $appearance['header_logo'] ) {
-    if ( $appearance['header_link'] ) {
-      echo '<a href="' . $link . '"><img class="header-logo" src="' . $image . '" /><a/>';
-    } else {
-      echo '<a href="' . get_home_url() . '"><img class="header-logo" src="' . $image . '" /><a/>';
-    }
-  } else {
-    echo '<div class="pressbooks-logo">Lumen</div>';
-  }
+	if ( isset( $appearance['header_logo'] ) ) {
+		if ( isset( $appearance['header_link'] ) ) {
+			echo '<a href="' . $appearance['header_link'] . '"><img class="header-logo" src="' . $appearance['header_logo'] . '" /><a/>';
+		} else {
+			echo '<a href="' . get_home_url() . '"><img class="header-logo" src="' . $appearance['header_logo'] . '" /><a/>';
+		}
+	} else {
+		echo '<div class="pressbooks-logo">Lumen</div>';
+	}
 
 }
 
@@ -969,8 +965,8 @@ function pressbooks_theme_options_display() { ?>
 		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
 		<?php } ?>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
-    <a href="?page=pressbooks_theme_options&tab=navigation_options" class="nav-tab <?php echo $active_tab == 'navigation_options' ? 'nav-tab-active' : ''; ?>">Navigation Options</a>
-    <a href="?page=pressbooks_theme_options&tab=appearance_options" class="nav-tab <?php echo $active_tab == 'appearance_options' ? 'nav-tab-active' : ''; ?>">Appearance Options</a>
+		<a href="?page=pressbooks_theme_options&tab=navigation_options" class="nav-tab <?php echo $active_tab == 'navigation_options' ? 'nav-tab-active' : ''; ?>">Navigation Options</a>
+		<a href="?page=pressbooks_theme_options&tab=appearance_options" class="nav-tab <?php echo $active_tab == 'appearance_options' ? 'nav-tab-active' : ''; ?>">Appearance Options</a>
 		</h2>
 
 		<!-- Create the form that will be used to render our options -->
@@ -993,8 +989,8 @@ function pressbooks_theme_options_display() { ?>
 			} elseif( $active_tab == 'navigation_options' ) {
 				settings_fields( 'pressbooks_theme_options_navigation' );
 				do_settings_sections( 'pressbooks_theme_options_navigation' );
-      } elseif( $active_tab == 'appearance_options' ) {
-        settings_fields( 'pressbooks_theme_options_appearance' );
+			} elseif( $active_tab == 'appearance_options' ) {
+				settings_fields( 'pressbooks_theme_options_appearance' );
 				do_settings_sections( 'pressbooks_theme_options_appearance' );
 			} ?>
 			<?php submit_button(); ?>
