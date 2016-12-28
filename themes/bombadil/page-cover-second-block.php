@@ -16,7 +16,7 @@
 
 <div class="second-block clearfix">
 		<div class="description-book-info">
-			<?php $metadata = \Candela\Utility\candela_get_book_info_meta(); ?>
+			<?php $metadata = \Candela\Utility\Book\candela_get_book_info_meta(); ?>
 			<h2><?php _e('Copyright', 'pressbooks'); ?></h2>
 
 			<p class="copyright-text">
@@ -30,7 +30,7 @@
 
 			<?php if ( ! empty( $metadata['attribution-type'] ) ) : ?>
 				<p class="copyright-text">
-					<?php $license = \Candela\Utility\the_attribution_license( $metadata['attribution-licensing'] ); ?>
+					<?php $license = \Candela\Utility\Book\the_attribution_license( $metadata['attribution-licensing'] ); ?>
 
 					Cover Image:
 
@@ -55,7 +55,7 @@
 					<?php endif; ?>
 
 					<?php if ( ! empty( $metadata['attribution-type'] ) ) : ?>
-						Content Type: <?php echo \Candela\Utility\the_attribution_type( $metadata['attribution-type'] ); ?>.
+						Content Type: <?php echo \Candela\Utility\Book\the_attribution_type( $metadata['attribution-type'] ); ?>.
 					<?php endif; ?>
 
 					<?php if ( ! empty( $metadata['attribution-licensing'] ) ) : ?>
@@ -73,7 +73,7 @@
 
 			<p class="about-text">
 				Lumen Learning provides a simple, supported path for faculty members to
-				adopt and teach effectively with open educational resources (OER). 
+				adopt and teach effectively with open educational resources (OER).
 				<a target="_blank" href="http://lumenlearning.com/open-courses-overview/">Read more</a> about what we do.
 			</p>
 

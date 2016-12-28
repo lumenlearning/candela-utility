@@ -31,7 +31,7 @@ function bombadil_theme_scripts() {
   );
   wp_localize_script( 'attributions', 'thePost', $dataToBePassed );
 
-  wp_enqueue_script( 'hide_answers', plugins_url('tinymce-hide-answers') . '/js/hide-answers.js', array( 'jquery' ), '', true );
+  wp_enqueue_script( 'hide_answers', CU_PLUGIN_URL . 'assets/js/hide-answer.js', array( 'jquery' ), '', true );
   wp_enqueue_script( 'html5shiv', 'https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js', array(), '3.7.3', false );
   wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
   wp_enqueue_script( 'typekit', '//use.typekit.net/mje6fya.js', array(), '1.0.0' );
