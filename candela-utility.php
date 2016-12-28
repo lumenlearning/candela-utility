@@ -38,9 +38,16 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 // CLASS INCLUDES
 // -----------------------------------------------------------------------------
 
-include CU_PLUGIN_DIR . 'includes/cu-functions.php';
 include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
-include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
-include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
 include CU_PLUGIN_DIR . 'includes/cu-book-info.php';
+include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
+include CU_PLUGIN_DIR . 'includes/cu-functions.php';
+include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
+include CU_PLUGIN_DIR . 'includes/cu-import.php';
 include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
+
+// -----------------------------------------------------------------------------
+// MODULE INCLUDES
+// -----------------------------------------------------------------------------
+
+include CU_PLUGIN_DIR . 'includes/modules/import/imscc/class-cu-imscc.php';
