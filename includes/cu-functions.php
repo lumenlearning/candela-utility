@@ -11,6 +11,14 @@ namespace Candela\Utility;
 
 
 /**
+ * Pantheon Hosting required session handling
+ */
+function pantheon_session_config() {
+	ini_set( 'session.save_handler', 'files' );
+}
+add_filter( 'pressbooks_session_configuration', '\Candela\Utility\pantheon_session_config' );
+
+/**
  * Necessary configuration updates and changes when a new book is created.
  */
 function pressbooks_new_book() {
