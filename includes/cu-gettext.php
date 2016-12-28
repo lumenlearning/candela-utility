@@ -9,7 +9,7 @@
 
 namespace Candela\Utility\Gettext;
 
-/*
+/**
  * Returns all translated text belonging to the "pressbooks" domain
  */
 function gettext_with_context( $translated_text, $text, $context, $domain ) {
@@ -20,7 +20,7 @@ function gettext_with_context( $translated_text, $text, $context, $domain ) {
 }
 add_filter( 'gettext_with_context', '\Candela\Utility\Gettext\gettext_with_context', 20, 4 );
 
-/*
+/**
  * Translates "pressbooks" domain text to lumen-specific use case
  */
 function gettext( $translated_text, $text, $domain ) {

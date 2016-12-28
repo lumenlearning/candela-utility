@@ -154,7 +154,7 @@ class Candela_Utility_Editor {
 
 	}
 
-	/*
+	/**
 	 * Adds several custom quicktags to the text view in the editor
 	 * Ex: QTags.addButton( id, display, arg1, arg2, access_key, title, priority, instance );
 	 */

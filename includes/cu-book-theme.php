@@ -14,7 +14,7 @@ namespace Candela\Utility\Book;
 // REGISTER THEMES DIRECTORY
 // -----------------------------------------------------------------------------
 
-/*
+/**
  * Registers book themes
  */
 function register_themes() {
@@ -24,7 +24,7 @@ function register_themes() {
 }
 add_action( 'init', '\Candela\Utility\Book\register_themes' );
 
-/*
+/**
  * Enqueue styles for book themes
  */
 function register_child_themes() {
@@ -33,7 +33,7 @@ function register_child_themes() {
 }
 add_action( 'wp_enqueue_style', '\Candela\Utility\Book\register_child_themes' );
 
-/*
+/**
  * Add registered themes to the list of Pressbooks book themes
  */
 function add_theme( $themes ) {
@@ -60,6 +60,9 @@ add_filter( 'allowed_themes', '\Candela\Utility\Book\add_theme', 12 );
 
 /**
  * Returns the attribution type (used for cover image licensing)
+ *
+ * @param $type string
+ * @return string
  */
 function the_attribution_type( $type ) {
 
@@ -81,10 +84,11 @@ function the_attribution_type( $type ) {
 }
 
 /**
- * Returns an array of the License long name (label) and creativecommons
+ * Returns a string of the License long name (label) and creativecommons
  * definition (link)
  *
- * @return array
+ * @param $short_attribution String
+ * @return string
  */
 function the_attribution_license( $short_attribution ) {
 
@@ -167,7 +171,6 @@ function nav_links() {
  * This is taken from PB's inner code to find the next page
  *
  * @param string $what prev, next
- *
  * @return ID of requested post
  */
 function get_pb_page_id( $what = 'next' ) {

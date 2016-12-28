@@ -64,6 +64,16 @@ function pressbooks_new_book_info( $post_id ) {
 }
 add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 
+/**
+ * Returns the origin cover image url that points to Amazon S3, and not the
+ * local server that this instance of Wordpress is hosted on.
+ *
+ * @return $cover_url2 The original cover image url (on Amazon S3)
+ */
+function cover_image_url( $cover_url1, $cover_url2 ) {
+	return $cover_url2;
+}
+add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url' );
 
 // -----------------------------------------------------------------------------
 // OEMBED HANDLING
@@ -71,7 +81,6 @@ add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 
 /**
  * Filter embed_oembed_html.
- *
  * Replace all 'http://' links with 'https://
  */
 function embed_oembed_html( $html, $url, $attr ) {
@@ -114,7 +123,12 @@ function register_oembed_providers() {
 add_action( 'init', '\Candela\Utility\register_oembed_providers' );
 
 /**
- * Handle embeds
+ * Handle embeds. Called from \Candela\Utility\register_oembed_providers()
+ *
+ * @param $matches
+ * @param $attr
+ * @param $url
+ * @param rawattr
  */
 function embed_handler( $matches, $attr, $url, $rawattr ) {
 	// Use the current post as the external id
@@ -143,6 +157,14 @@ function embed_handler( $matches, $attr, $url, $rawattr ) {
 	return apply_filters( 'embed_oea', $embed, $matches, $attr, $url, $rawattr );
 }
 
+/**
+ * Handle assessment embeds. Called from \Candela\Utility\register_oembed_providers()
+ *
+ * @param $matches
+ * @param $attr
+ * @param $url
+ * @param rawattr
+ */
 function lumen_asmnt_embed_handler( $matches, $attr, $url, $rawattr ) {
 	$assessment_id = esc_attr( $matches[1] );
 

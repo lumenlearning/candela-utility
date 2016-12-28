@@ -10,7 +10,7 @@
 namespace Candela\Utility\Admin;
 
 
-/*
+/**
  * Removes Presbooks branding from Admin area
  */
 function remove_pressbooks_branding() {
@@ -22,8 +22,10 @@ function remove_pressbooks_branding() {
 }
 add_action( 'plugins_loaded', '\Candela\Utility\Admin\remove_pressbooks_branding' );
 
-/*
+/**
  * Replace logo on admin login page
+ *
+ * @return html
  */
 function replace_login_logo() {
 	$html = "<style type='text/css'>
@@ -49,7 +51,7 @@ function replace_login_logo() {
 }
 add_filter( 'pressbooks_login_logo', '\Candela\Utility\Admin\replace_login_logo' );
 
-/*
+/**
  * Replace logo in menu bar and add links to About page, Contact page, and forums
  *
  * @param \WP_Admin_Bar $wp_admin_bar The admin bar object as it currently exists
@@ -94,7 +96,7 @@ function replace_footer_link() {
 }
 add_filter( 'admin_footer_text', '\Candela\Utility\Admin\replace_footer_link' );
 
-/*
+/**
  * Enqueues Admin Area Stylesheet
  */
 function enqueue_admin_stylesheet() {
@@ -105,7 +107,7 @@ function enqueue_admin_stylesheet() {
 add_action( 'admin_enqueue_scripts', '\Candela\Utility\Admin\enqueue_admin_stylesheet' );
 add_action( 'login_enqueue_scripts', '\Candela\Utility\Admin\enqueue_admin_stylesheet' );
 
-/*
+/**
  * Removes Pressbooks Newsfeed widget from the Admin Dashboard
  */
 function declutter_admin_dashboard() {
@@ -116,7 +118,7 @@ function declutter_admin_dashboard() {
 }
 add_action( 'do_meta_boxes', '\Candela\Utility\Admin\declutter_admin_dashboard' );
 
-/*
+/**
  * Makes adjustments to the admin menu based on user roles and privileges
  */
 function adjust_admin_menu() {
