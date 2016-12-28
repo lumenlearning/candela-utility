@@ -23,6 +23,33 @@ function remove_pressbooks_branding() {
 add_action( 'plugins_loaded', '\Candela\Utility\Admin\remove_pressbooks_branding' );
 
 /*
+ * Replace logo on admin login page
+ */
+function replace_login_logo() {
+	$html = "<style type='text/css'>
+						.login h1 a {
+						  background-image: url('https://s3-us-west-2.amazonaws.com/pbj-assets/login-logo.png');
+						  background-size: 300px 138px;
+						  width: 300px;
+						  height: 138px;
+						  margin-bottom: 1em;
+					  }
+						.login .message {
+						  border-left: 4px solid #0077cc;
+						}
+						.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
+						  color: #d4002d;
+						}
+						.no-svg .login h1 a {
+							background-image: url('https://s3-us-west-2.amazonaws.com/pbj-assets/login-logo.png');
+						}
+					</style>";
+
+	return $html;
+}
+add_filter( 'pressbooks_login_logo', '\Candela\Utility\Admin\replace_login_logo' );
+
+/*
  * Replace logo in menu bar and add links to About page, Contact page, and forums
  *
  * @param \WP_Admin_Bar $wp_admin_bar The admin bar object as it currently exists
