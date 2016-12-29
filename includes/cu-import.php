@@ -9,6 +9,7 @@
 
 namespace Candela\Utility\Import;
 
+
 add_filter( 'pb_initialize_import', array( '\Pressbooks\Modules\Import\IMSCC\IMSCC', 'init' ) );
 
 /**
