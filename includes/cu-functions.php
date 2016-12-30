@@ -65,7 +65,7 @@ function pressbooks_new_book_info( $post_id ) {
 add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 
 /**
- * Returns the origin cover image url that points to Amazon S3, and not the
+ * Returns the original cover image url that points to Amazon S3, and not the
  * local server that this instance of Wordpress is hosted on.
  *
  * @return $cover_url2 The original cover image url (on Amazon S3)
@@ -73,4 +73,4 @@ add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 function cover_image_url( $cover_url1, $cover_url2 ) {
 	return $cover_url2;
 }
-add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url' );
+add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url', 10, 2 );
