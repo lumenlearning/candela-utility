@@ -130,21 +130,23 @@ function adjust_admin_menu() {
 		remove_menu_page( "edit.php?post_type=lti_consumer" );
 	}
 
-	add_submenu_page('pb_export', 'Export to Thin-CC', 'Thin-CC Export', 'export', 'tools.php?page=candela-thin-export.php');
+	remove_menu_page( 'plugins.php' );
+
+	add_submenu_page( 'pb_export', 'Export to Thin-CC', 'Thin-CC Export', 'export', 'tools.php?page=candela-thin-export.php' );
 
 	// Remove items that non-admins should not see
-	if ( ! ( in_array('administrator', $current_user->roles) || is_super_admin() ) ) {
-		remove_menu_page('themes.php');
-		remove_menu_page('pb_export');
-		remove_menu_page('pb_import');
-		remove_menu_page('pb_sell');
-		remove_submenu_page('options-general.php', 'pb_import');
-		remove_menu_page('lti-maps');
-		remove_menu_page('edit-comments.php');
+	if ( ! ( in_array( 'administrator', $current_user->roles ) || is_super_admin() ) ) {
+		remove_menu_page( 'themes.php' );
+		remove_menu_page( 'pb_export' );
+		remove_menu_page( 'pb_import' );
+		remove_menu_page( 'pb_sell' );
+		remove_submenu_page( 'options-general.php', 'pb_import' );
+		remove_menu_page( 'lti-maps' );
+		remove_menu_page( 'edit-comments.php' );
 	}
 
 	// Remove items for non-admins and non-editors
-	if ( ! ( in_array('administrator' , $current_user->roles ) || in_array('editor', $current_user->roles) || is_super_admin() ) ) {
+	if ( ! ( in_array( 'administrator' , $current_user->roles ) || in_array( 'editor', $current_user->roles ) || is_super_admin() ) ) {
 		$metadata = new \PressBooks\Metadata();
 		$meta = $metadata->getMetaPost();
 		if ( ! empty( $meta ) ) {
@@ -152,9 +154,9 @@ function adjust_admin_menu() {
 		} else {
 			$book_info_url = 'post-new.php?post_type=metadata';
 		}
-		remove_menu_page($book_info_url);
-		remove_submenu_page('pb_export', 'tools.php?page=candela-thin-export.php');
+		remove_menu_page( $book_info_url );
+		remove_submenu_page( 'pb_export', 'tools.php?page=candela-thin-export.php' );
 	}
 
 }
-add_action( 'admin_menu', '\Candela\Utility\Admin\adjust_admin_menu', 11);
+add_action( 'admin_menu', '\Candela\Utility\Admin\adjust_admin_menu', 11 );
