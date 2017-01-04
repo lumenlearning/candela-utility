@@ -46,6 +46,7 @@ include CU_PLUGIN_DIR . 'includes/cu-functions.php';
 include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
 include CU_PLUGIN_DIR . 'includes/cu-import.php';
 include CU_PLUGIN_DIR . 'includes/cu-oembed.php';
+include CU_PLUGIN_DIR . 'includes/cu-theme-options.php';
 include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 
 // -----------------------------------------------------------------------------
@@ -53,3 +54,5 @@ include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 // -----------------------------------------------------------------------------
 
 include CU_PLUGIN_DIR . 'includes/modules/import/imscc/class-cu-imscc.php';
+include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-navigation-options.php';
+include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-appearance-options.php';
