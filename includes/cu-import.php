@@ -10,7 +10,7 @@
 namespace Candela\Utility\Import;
 
 
-add_filter( 'pb_initialize_import', array( '\Pressbooks\Modules\Import\IMSCC\IMSCC', 'init' ) );
+add_action( 'pb_initialize_import', array( '\Candela\Utility\Modules\Import\IMSCC\IMSCC', 'init' ) );
 
 /**
  * Adds IMS-CC (Common Cartridge) as an option in import select field.

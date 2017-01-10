@@ -17,7 +17,7 @@ use \Pressbooks\Book;
 class IMSCC extends Import {
 
 	/**
-	 * Instantiate Class. Called from add_action() in Candela\Utility::init().
+	 * Instantiate Class.
 	 */
 	public static function init() {
 		$class = new self;
