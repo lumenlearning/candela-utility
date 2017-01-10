@@ -81,7 +81,7 @@ class IMSCC extends Import {
 				$new_post = array(
 					'post_title' => wp_strip_all_tags( $item['title'] ),
 					'post_type' => $post_type,
-					'post_status' => ( 'part' == $post_type ) ? 'publish' : 'draft',
+					'post_status' => ( 'part' == $post_type ) ? 'publish' : $current_import['default_post_status'],
 				);
 				if ( 'part' != $post_type ) {
 					$new_post['post_content'] = $imscc->getContent( $id );
