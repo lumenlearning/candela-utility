@@ -18,7 +18,7 @@ function add_meta_boxes() {
 	lumen_course_info_meta_box();
 	cover_image_attribution_meta_box();
 
-	add_meta_box( 'nav-links', 'Edit Navigation Links', __NAMESPACE__ . '\nav_links', 'chapter', 'side', 'low' );
+	add_meta_box( 'nav-links', 'Edit Navigation Links', '\Candela\Utility\Book\nav_links', 'chapter', 'side', 'low' );
 
 }
 add_action( 'custom_metadata_manager_init_metadata', '\Candela\Utility\add_meta_boxes' );
