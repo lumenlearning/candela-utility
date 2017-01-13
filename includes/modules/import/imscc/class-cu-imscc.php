@@ -7,8 +7,8 @@
 
 namespace Candela\Utility\Modules\Import\IMSCC;
 
-require_once ( WP_PLUGIN_DIR . '/pressbooks/pressbooks.php' );
-require_once ( WP_PLUGIN_DIR . '/pressbooks/includes/modules/import/class-pb-import.php' );
+require_once ( dirname( CU_PLUGIN_DIR ) . '/pressbooks/pressbooks.php' );
+require_once ( dirname( CU_PLUGIN_DIR ) . '/pressbooks/includes/modules/import/class-pb-import.php' );
 
 use \Pressbooks\Modules\Import\Import;
 use \Pressbooks\Book;
