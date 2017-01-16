@@ -5,7 +5,7 @@ Copyright: Automattic, Inc.
 License: GPL2+
 */
 
-class katex {
+class Katex {
 	var $latex;
 	var $bg_hex;
 	var $fg_hex;
@@ -28,16 +28,20 @@ class katex {
 	}
 
 	function sanitize_hex( $color ) {
-		if ( 'transparent' == $color )
+		if ( 'transparent' == $color ) {
 			return 'T';
+		}
 
 		// Fix for 3 letter hex codes
-		if ( 3 == strlen( $color ) )
-			$color = $color[0] . $color[0] . $color[1] . $color[1]. $color[2] . $color[2];
+		if ( 3 == strlen( $color ) ) {
+			$color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
+		}
 
 		$color = substr( preg_replace( '/[^0-9a-f]/i', '', (string) $color ), 0, 6 );
-		if ( 6 > $l = strlen( $color ) )
-			$color .= str_repeat('0', 6 - $l );
+		if ( 6 > $l = strlen( $color ) ) {
+			$color .= str_repeat( '0', 6 - $l );
+		}
+
 		return $color;
 	}
 

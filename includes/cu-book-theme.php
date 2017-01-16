@@ -42,8 +42,8 @@ function add_theme( $themes ) {
 	if ( \Pressbooks\Book::isBook() ) {
 		$registered_themes = search_theme_directories();
 		foreach ( $registered_themes as $key => $val ) {
-			if ( $val['theme_root'] == CU_PLUGIN_DIR . 'themes' ) {
-				$merge_themes[$key] = 1;
+			if ( CU_PLUGIN_DIR . 'themes' == $val['theme_root'] ) {
+				$merge_themes[ $key ] = 1;
 			}
 		}
 		// add our themes
@@ -72,10 +72,10 @@ function the_attribution_type( $type ) {
 		'cc-attribution' => 'CC Licensed Content, Specific Attribution',
 		'copyrighted_video' => 'All Rights Reserved Content',
 		'pd' => 'Public Domain Content',
-		'lumen' => 'Lumen Learning Authored Content'
+		'lumen' => 'Lumen Learning Authored Content',
 	);
 
-	foreach( $types as $key => $value ) {
+	foreach ( $types as $key => $value ) {
 		if ( $key === $type ) {
 			return $value;
 		}
@@ -93,7 +93,7 @@ function the_attribution_type( $type ) {
 function the_attribution_license( $short_attribution ) {
 
 	$attributions = array(
-		'pd' =>  array(
+		'pd' => array(
 			'label' => __( 'Public Domain: No Known Copyright' ),
 			'link' => 'https://creativecommons.org/about/pdm',
 		),
@@ -126,7 +126,7 @@ function the_attribution_license( $short_attribution ) {
 			'link' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 		),
 		'arr' => array(
-			'label' =>  __( 'All Rights Reserved' ),
+			'label' => __( 'All Rights Reserved' ),
 		),
 		'other' => array(
 			'label' => __( 'Other' ),
@@ -162,8 +162,8 @@ function candela_get_book_info_meta() {
  * previous pages
  */
 function nav_links() {
-	echo( edit_post_link( "Previous", '', '', get_pb_page_id( "prev" ) ) . " - " );
-	echo( edit_post_link( "Next", '', '', get_pb_page_id( 'next' ) ) );
+	echo( edit_post_link( 'Previous', '', '', get_pb_page_id( 'prev' ) ) . ' - ' );
+	echo( edit_post_link( 'Next', '', '', get_pb_page_id( 'next' ) ) );
 }
 
 /**
@@ -183,7 +183,7 @@ function get_pb_page_id( $what = 'next' ) {
 	$order = $book_structure['__order'];
 	$pos = array_keys( $order );
 
-	$what = ( $what == 'next' ? 'next' : 'prev' );
+	$what = ( 'next' ? 'next' : 'prev' == $what );
 
 	// Move internal pointer to correct position
 	reset( $pos );
@@ -198,7 +198,7 @@ function get_pb_page_id( $what = 'next' ) {
 	// Get next/previous
 	$what( $pos );
 	while ( $post_id = current( $pos ) ) {
-		if ( $order[$post_id]['post_status'] == 'publish' ) {
+		if ( 'publish' == $order[ $post_id ]['post_status'] ) {
 			break;
 		} elseif ( current_user_can_for_blog( $blog_id, 'read' ) ) {
 			break;

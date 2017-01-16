@@ -1,18 +1,19 @@
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
-	<?php get_header(); ?>
-	<?php if (get_option('blog_public') == '1' || (get_option('blog_public') == '0' && current_user_can_for_blog($blog_id, 'read'))): ?>
+<?php
+if ( have_posts() ) {
+	while ( have_posts() ) {
+		the_post();
+		get_header();
 
-		<?php
-			if (get_post_type($post->ID) !== 'part') {
-				include('single_page.php');
+		if ( get_option( 'blog_public' ) == '1' || ( get_option( 'blog_public' ) == '0' && current_user_can_for_blog( $blog_id, 'read' ) ) ) {
+			if ( get_post_type( $post->ID ) !== 'part' ) {
+				include( 'single-page.php' );
+			} else {
+				include( 'single-study-plan.php' );
 			}
-			else {
-				include('single_study_plan.php');
-			}
-		?>
+		}
+	} // endwhile
+} else {
+	pb_private();
+} // endif
 
-	<?php else: ?>
-		<?php pb_private(); ?>
-	<?php endif; ?>
-	<?php get_footer(); ?>
-<?php endwhile;?>
+get_footer();

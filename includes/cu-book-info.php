@@ -35,13 +35,13 @@ function lumen_course_info_meta_box() {
 
 	$fields = array(
 		'candela-credit-statement' => array(
-			'label' => __('Credit Statement'),
+			'label' => __( 'Credit Statement' ),
 			'field_type' => 'textarea',
-			'description' => __('A short acknowledgement of institutions, funders and/or contributors responsible for developing the course. This will be displayed on the Table of Contents.'),
+			'description' => __( 'A short acknowledgement of institutions, funders and/or contributors responsible for developing the course. This will be displayed on the Table of Contents.' ),
 		),
 		'candela-previous-textbook-cost' => array(
-			'label' => __('Previous Textbook Cost'),
-			'description' => __('Previous textbook cost rounded down to the nearest dollar. This information is not shown in the public view of the course.'),
+			'label' => __( 'Previous Textbook Cost' ),
+			'description' => __( 'Previous textbook cost rounded down to the nearest dollar. This information is not shown in the public view of the course.' ),
 		),
 	);
 
@@ -70,8 +70,8 @@ function cover_image_attribution_meta_box() {
 				'cc-attribution' => 'CC licensed content, Specific attribution',
 				'copyrighted_video' => 'All rights reserved content',
 				'pd' => 'Public domain content',
-				'lumen' => 'Lumen Learning authored content'
-			)
+				'lumen' => 'Lumen Learning authored content',
+			),
 		),
 		'attribution-description' => array(
 			'label' => __( 'Description' ),
@@ -105,7 +105,7 @@ function cover_image_attribution_meta_box() {
 		),
 		'attribution-license-terms' => array(
 			'label' => __( 'License Terms' ),
-		)
+		),
 	);
 
 	render_meta_box_fields( $group, $fields );
@@ -117,9 +117,9 @@ function cover_image_attribution_meta_box() {
  */
 function render_meta_box_fields( $group, $fields ) {
 
-	foreach ($fields as $key => $info) {
+	foreach ( $fields as $key => $info ) {
 		$info['group'] = $group;
-		x_add_metadata_field( $key, 'metadata', $info);
+		x_add_metadata_field( $key, 'metadata', $info );
 	}
 
 }

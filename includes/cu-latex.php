@@ -15,12 +15,12 @@ namespace Candela\Utility\Latex;
  * @param string $class
  */
 function init( $class ) {
-	if ( 'katex' == $class ) {
-		require_once ( CU_PLUGIN_DIR . 'includes/modules/latex/katex.php' );
+	if ( 'Katex' == $class ) {
+		require_once( CU_PLUGIN_DIR . 'includes/modules/latex/katex.php' );
 	} elseif ( 'Automattic_Latex_MOMCOM' == $class ) {
-		require_once ( CU_PLUGIN_DIR . 'includes/modules/latex/automattic-latex-momcom.php' );
-	} elseif ( 'mathjax' == $class ) {
-		require_once ( CU_PLUGIN_DIR . 'includes/modules/latex/mathjax.php' );
+		require_once( CU_PLUGIN_DIR . 'includes/modules/latex/automattic-latex-momcom.php' );
+	} elseif ( 'MathJax' == $class ) {
+		require_once( CU_PLUGIN_DIR . 'includes/modules/latex/mathjax.php' );
 	}
 }
 add_filter( 'pb_require_latex', '\Candela\Utility\Latex\init' );
@@ -32,9 +32,9 @@ add_filter( 'pb_require_latex', '\Candela\Utility\Latex\init' );
  * @return array
  */
 function add_latex_renderer_options( array $options ) {
-	$options['katex'] = __( 'KaTeX + MathJax in-browser', 'pb-latex' );
+	$options['Katex'] = __( 'KaTeX + MathJax in-browser', 'pb-latex' );
 	$options['Automattic_Latex_MOMCOM'] = __( 'MyOpenMath.com MimeTeX server', 'pb-latex' );
-	$options['mathjax'] = __( 'MathJax in-browser', 'pb-latex' );
+	$options['MathJax'] = __( 'MathJax in-browser', 'pb-latex' );
 
 	return $options;
 }
@@ -47,9 +47,9 @@ add_filter( 'pb_add_latex_renderer_option', '\Candela\Utility\Latex\add_latex_re
  * @return array
  */
 function add_latex_renderer_types( array $renderers ) {
-	$renderers['katex'] = 'katex';
+	$renderers['Katex'] = 'katex';
 	$renderers['Automattic_Latex_MOMCOM'] = 'momcom';
-	$renderers['mathjax'] = 'mathjax';
+	$renderers['MathJax'] = 'mathjax';
 
 	return $renderers;
 }
@@ -61,15 +61,15 @@ add_filter( 'pb_latex_renderers', '\Candela\Utility\Latex\add_latex_renderer_typ
  * @param string $methods
  */
 function enqueue_latex_scripts( $method ) {
-	if ( 'katex' == $method || 'Automattic_Latex_MOMCOM' == $method ) {
+	if ( 'Katex' == $method || 'Automattic_Latex_MOMCOM' == $method ) {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'cu_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 		wp_enqueue_script( 'cu_asciimathteximg', CU_PLUGIN_URL . 'assets/js/ASCIIMathTeXImg.js' );
 		wp_enqueue_script( 'cu_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
 		wp_enqueue_style( 'cu_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
-		wp_enqueue_script( 'cu_katex_autorender', CU_PLUGIN_URL . 'assets/js/auto-render.js', array( 'cu_katex' , 'cu_mathjax' , 'jquery') );
+		wp_enqueue_script( 'cu_katex_autorender', CU_PLUGIN_URL . 'assets/js/auto-render.js', array( 'cu_katex', 'cu_mathjax', 'jquery' ) );
 		add_shortcode( 'latex', '\Candela\Utility\Latex\katex_short_codes' );
-	} elseif ( 'mathjax' == $method ) {
+	} elseif ( 'MathJax' == $method ) {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'cu_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 	}
@@ -82,7 +82,7 @@ add_action( 'pb_enqueue_latex_scripts', '\Candela\Utility\Latex\enqueue_latex_sc
  * @param string $method
  */
 function katex_config_scripts( $method ) {
-	if ( 'katex' == $method ) {
+	if ( 'Katex' == $method ) {
 		echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				skipStartupTypeset: true,
@@ -92,7 +92,7 @@ function katex_config_scripts( $method ) {
 		<script type="text/javascript">
 			MathJax.Hub.Configured();
 		</script>';
-	} elseif ( 'mathjax' == $method ) {
+	} elseif ( 'MathJax' == $method ) {
 		echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				TeX: { extensions: ["cancel.js", "mhchem.js"] },
@@ -119,6 +119,6 @@ function katex_short_codes( $_atts, $latex ) {
 		array( '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ), array( '"', '``', "''", "'", "'", "'", "'", '&', '&', ' ', ' ', ' ', '-' ), $latex
 	);
 
-	return "[latex]" . $latex . "[/latex]";
+	return '[latex]' . $latex . '[/latex]';
 }
 add_shortcode( 'latex', '\Candela\Utility\Latex\katex_short_codes' );

@@ -28,15 +28,14 @@ function pressbooks_new_book() {
 	// Set copyright to display by default
 	$options = get_option( 'pressbooks_theme_options_global' );
 	$options['copyright_license'] = 1;
-	update_option('pressbooks_theme_options_global', $options);
+	update_option( 'pressbooks_theme_options_global', $options );
 
 	// Update new blog urls to https
-	$urls = array('home', 'siteurl');
+	$urls = array( 'home', 'siteurl' );
 	foreach ( $urls as $option ) {
 		$value = get_option( $option );
-		update_option($option , str_replace( 'http://', 'https://', $value) );
+		update_option( $option , str_replace( 'http://', 'https://', $value ) );
 	}
-
 }
 add_action( 'pressbooks_new_blog', '\Candela\Utility\pressbooks_new_book' );
 
@@ -50,13 +49,13 @@ add_action( 'pressbooks_new_blog', '\Candela\Utility\pressbooks_new_book' );
  */
 function pressbooks_new_book_info( $post_id ) {
 	// There is exactly one 'metadata' post per wordpress site
-	if ( get_post_type( $post_id ) == 'metadata') {
-		$license = get_post_meta( $post_id, 'pb_book_license', TRUE);
+	if ( get_post_type( $post_id ) == 'metadata' ) {
+		$license = get_post_meta( $post_id, 'pb_book_license', true );
 		if ( empty( $license ) ) {
 			update_post_meta( $post_id, 'pb_book_license', 'cc-by' );
 		}
 
-		$copyright_holder = get_post_meta( $post_id, 'pb_copyright_holder', TRUE );
+		$copyright_holder = get_post_meta( $post_id, 'pb_copyright_holder', true );
 		if ( empty( $copyright_holder ) ) {
 			update_post_meta( $post_id, 'pb_copyright_holder', 'Lumen Learning' );
 		}

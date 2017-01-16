@@ -18,7 +18,7 @@ namespace Candela\Utility;
  */
 function add_revised_column( $columns ) {
 	$columns['revised'] = 'Revised';
-	$columns[ 'modified_author' ] = 'Last modified by';
+	$columns['modified_author'] = 'Last modified by';
 	return $columns;
 }
 add_filter( 'manage_edit-chapter_columns', '\Candela\Utility\add_revised_column' );
@@ -32,7 +32,7 @@ function echo_revised_column( $column, $id ) {
 	}
 
 	if ( 'modified_author' == $column ) {
-		$last_id = get_post_meta( $id, '_edit_last', TRUE );
+		$last_id = get_post_meta( $id, '_edit_last', true );
 
 		if ( ! $last_id ) {
 			print '<i>Unknown</i>';

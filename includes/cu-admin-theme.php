@@ -126,8 +126,8 @@ function adjust_admin_menu() {
 
 	$current_user = wp_get_current_user();
 
-	if ( $blog_id != 1 ) {
-		remove_menu_page( "edit.php?post_type=lti_consumer" );
+	if ( 1 != $blog_id ) {
+		remove_menu_page( 'edit.php?post_type=lti_consumer' );
 	}
 
 	remove_menu_page( 'plugins.php' );

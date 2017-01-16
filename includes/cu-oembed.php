@@ -74,7 +74,7 @@ function embed_handler( $matches, $attr, $url, $rawattr ) {
 		'eid=' . esc_url( $permalink ),
 	);
 
-	$parms = implode('&', $parameters);
+	$parms = implode( '&', $parameters );
 
 	$embed = sprintf( '<iframe src="//%s/assessments/load?src_url=https://%s/api/assessments/%d.xml&results_end_point=https://%s/api&assessment_id=%d&%s" frameborder="0" style="border:none;width:100%%;height:100%%;min-height:400px;"></iframe>',
 		esc_attr( $matches[1] ),
@@ -99,7 +99,7 @@ function embed_handler( $matches, $attr, $url, $rawattr ) {
 function lumen_asmnt_embed_handler( $matches, $attr, $url, $rawattr ) {
 	$assessment_id = esc_attr( $matches[1] );
 
-	switch_to_blog(1);
+	switch_to_blog( 1 );
 	$external_id = get_user_meta( wp_get_current_user()->ID, 'candelalti_external_userid', true );
 	$external_context_id = $_GET['lti_context_id'];
 	restore_current_blog();
