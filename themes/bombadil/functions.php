@@ -208,7 +208,7 @@ function allow_post_tags( $allowed_post_tags ) {
 add_filter( 'wp_kses_allowed_html', 'allow_post_tags', 1 );
 
 /**
- * Renders the nav container if navigation_show_header/_search is true
+ * Renders the nav container if nav_show_header/_search is true
  *
  * @return bool
  */
@@ -216,7 +216,7 @@ function show_nav_container() {
 
 	$navigation = get_option( 'pressbooks_theme_options_navigation' );
 
-	if ( ( 1 == $navigation['navigation_show_header'] ) || ( 1 == $navigation['navigation_show_search'] ) ) {
+	if ( ( 1 == $navigation['nav_show_header'] ) || ( 1 == $navigation['nav_show_search'] ) ) {
 		return true;
 	}
 }
@@ -263,7 +263,7 @@ function show_navigation_buttons() {
  * @return bool
  */
 function show_header() {
-	return show_nav_options( 'navigation_show_header' );
+	return show_nav_options( 'nav_show_header' );
 }
 
 /**
@@ -281,7 +281,7 @@ function show_header_link() {
  * @return bool
  */
 function show_search() {
-	return show_nav_options( 'navigation_show_search' );
+	return show_nav_options( 'nav_show_search' );
 }
 
 /**
