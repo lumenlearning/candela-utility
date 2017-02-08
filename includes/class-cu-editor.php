@@ -27,7 +27,7 @@ class Candela_Utility_Editor {
 		add_shortcode( 'hidden-answer', array( &$this, 'hidden_answer_shortcode' ) );
 
 		add_action( 'admin_print_footer_scripts', array( &$this, 'add_custom_quicktags' ) );
-
+		add_filter( 'tiny_mce_before_init', array( &$this, 'unstrip_mathml' ) );
 	}
 
 	/**
@@ -179,6 +179,15 @@ class Candela_Utility_Editor {
 	<?php }
 	}
 
+	/**
+	 * Stop removal of MathML elements when switching between visual and text modes
+	 * in the text editor.
+	 */
+	function unstrip_mathml( $init ) {
+		$init['extended_valid_elements'] = 'math[class|id|xmlns|altimg|alttext|display|overflow],semantics[encoding|definitionURL],annotation[encoding|definitionURL|cd|name|src],annotation-xml[cd|name|encoding|definitionURL|src],merror,mtext,mspace,mover[accent|align],munder,munderover,mstack,mrow[dir],msrow,mfenced[open|close|separators],menclose[notation],mphantom,msup,msub,msubsup,mmultiscripts,mi,mn,mo[fence],ms,mtable,mtr,mtd,mlabeledtr,mfrac[linethickness|bevelled|numalign|denomalign],mfraction,msline,msqrt,mroot,mscarries,mscarry';
+
+		return $init;
+	}
 }
 
 $candela_utility_editor = new Candela_Utility_Editor;
