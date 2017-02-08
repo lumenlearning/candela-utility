@@ -1,5 +1,8 @@
 <?php
 
+// Uncomment when testing xhtml export locally
+// add_filter( 'https_local_ssl_verify', '__return_false' );
+
 /**
  * Enqueues Bombadil Stylesheets
  *
@@ -14,6 +17,17 @@ function bombadil_theme_styles() {
 add_action( 'wp_print_styles', 'bombadil_theme_styles' );
 
 /**
+ * Enqueues Bombadil Editor Stylesheet
+ *
+ */
+function bombadil_editor_styles() {
+
+  add_editor_style( 'editor-style.css' );
+
+}
+add_action( 'init', 'bombadil_editor_styles' );
+
+/**
  * Enqueues Bombadil Scripts
  *
  */
@@ -23,6 +37,7 @@ function bombadil_theme_scripts() {
   wp_enqueue_script( 'iframe_resizer', get_stylesheet_directory_uri() . '/js/iframe_resizer.js', array( 'jquery' ), '', true );
   wp_enqueue_script( 'embedded_audio', get_stylesheet_directory_uri() . '/js/audio_behavior.js', array( 'jquery' ), '', true );
   wp_enqueue_script( 'lti_buttons', get_stylesheet_directory_uri() . '/js/lti_buttons.js', array( 'jquery' ), '', true );
+  wp_enqueue_script( 'edit_page_button', get_stylesheet_directory_uri() . '/js/edit_page_button.js', array( 'jquery' ), '', true );
   wp_enqueue_script( 'attributions', get_stylesheet_directory_uri() . '/js/attributions.js', array( 'jquery' ), '', true );
 
   // Pass PHP data down to attributions.js
@@ -319,8 +334,11 @@ function show_small_title() {
  * @return bool
  */
 function show_edit_button() {
+  if ( current_user_can( 'edit_post' ) ) {
 
-  return show_nav_options( 'navigation_show_edit_button' );
+    return show_nav_options( 'navigation_show_edit_button' );
+
+  }
 
 }
 
@@ -1004,3 +1022,32 @@ function pressbooks_theme_options_display() { ?>
 }
 
 endif;
+
+function bombadil_mce_before_init_insert_formats( $init_array ) {
+  $style_formats = array(
+    array(
+      'title' => 'Try It',
+      'block' => 'div',
+      'classes' => 'tryit',
+      'wrapper' => true
+    ),
+  );
+
+  $init_array['style_formats'] = json_encode( $style_formats );
+
+  return $init_array;
+}
+add_filter( 'tiny_mce_before_init', 'bombadil_mce_before_init_insert_formats' );
+
+/**
+ * Stop removal of MathML elements when switching between visual and text modes
+ * in the text editor.
+ */
+function bombadil_tinymce_fix( $init )
+{
+    // html elements being stripped
+    $init['extended_valid_elements'] = 'math[class|id|xmlns|altimg|alttext|display|overflow],semantics[encoding|definitionURL],annotation[encoding|definitionURL|cd|name|src],annotation-xml[cd|name|encoding|definitionURL|src],merror,mtext,mspace,mover[accent|align],munder,munderover,mstack,mrow[dir],msrow,mfenced[open|close|separators],menclose[notation],mphantom,msup,msub,msubsup,mmultiscripts,mi,mn,mo[fence],ms,mtable,mtr,mtd,mlabeledtr,mfrac[linethickness|bevelled|numalign|denomalign],mfraction,msline,msqrt,mroot,mscarries,mscarry';
+    // pass back to wordpress
+    return $init;
+}
+add_filter('tiny_mce_before_init', 'bombadil_tinymce_fix');
