@@ -42,6 +42,7 @@ function init() {
 	add_action( 'admin_print_footer_scripts', '\Candela\Utility\lumen_add_quicktags' );
 
 	add_filter( 'embed_oembed_html', '\Candela\Utility\embed_oembed_html', 10, 3 );
+	add_filter( 'pressbooks_session_configuration', '\Candela\Utility\pantheon_session_config' );
 }
 
 /*
@@ -678,4 +679,11 @@ function get_pb_page_id( $what = 'next' ) {
   }
 
   return $post_id;
+}
+
+/**
+ * Pantheon Hosting required session handling
+ */
+function pantheon_session_config() {
+	ini_set( 'session.save_handler', 'files');
 }
