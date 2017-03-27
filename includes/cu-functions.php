@@ -73,3 +73,18 @@ function cover_image_url( $cover_url1, $cover_url2 ) {
 	return $cover_url2;
 }
 add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url', 10, 2 );
+
+/**
+ * Skips Pressbooks EPUB dependency check.
+ *
+ * Pressbooks requires a dependency called EPubCheck (https://github.com/idpf/epubcheck)
+ * which validates EPUB files. Pantheon hosting does not allow dependencies like
+ * this to be installed directly on the server. Therefore, we must opt out of
+ * this validation service.
+ *
+ * @return bool true
+ */
+function skip_epub_dependency_check() {
+	return true;
+}
+add_filter( 'pb_epub_has_dependencies', '\Candela\Utility\skip_epub_dependency_check' );
