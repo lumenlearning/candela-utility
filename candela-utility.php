@@ -41,6 +41,7 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
 include CU_PLUGIN_DIR . 'includes/cu-book-info.php';
 include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
+include CU_PLUGIN_DIR . 'includes/cu-catalog-theme.php';
 include CU_PLUGIN_DIR . 'includes/cu-edit-sort.php';
 include CU_PLUGIN_DIR . 'includes/cu-functions.php';
 include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
