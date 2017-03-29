@@ -5,7 +5,7 @@ Copyright: Automattic, Inc.
 License: GPL2+
 */
 
-class MathJax {
+class mathjax {
 	var $latex;
 	var $bg_hex;
 	var $fg_hex;
