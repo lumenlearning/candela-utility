@@ -88,3 +88,12 @@ function skip_epub_dependency_check() {
 	return true;
 }
 add_filter( 'pb_epub_has_dependencies', '\Candela\Utility\skip_epub_dependency_check' );
+
+/**
+ * Keep emoticons as text.
+ *
+ * Wordpress 4.3 removed the ability to turn off text-to-emoji.  This filter keeps
+ * wordpress from converting text to emoji and disables the use of the
+ * convert_smilies() function.
+ */
+add_filter( 'option_use_smilies', '__return_false' );
