@@ -107,6 +107,15 @@ class IMSCC extends Import {
 				update_post_meta( $pid, 'pb_show_title', 'on' );
 				update_post_meta( $pid, 'pb_export', 'on' );
 
+				/**
+				 * If there are resources in the manifest resource metadata,
+				 * then update the post meta for the "candela-outcome" plugin.
+				 */
+				$resource = $imscc->getItem( $id );
+				if ( ! empty( $resource['guids'] ) ) {
+					update_post_meta( $pid, 'CANDELA_OUTCOMES_GUID', $resource['guids'] );
+				}
+
 				if ( 'part' == $post_type && $imscc->getContent( $id ) ) {
 					update_post_meta( $pid, 'pb_part_content', $imscc->getContent( $id ) );
 				}
@@ -192,6 +201,7 @@ class IMSCCParser {
 		// xpath requires us to register a namespace we use 'fake'
 		$this->xpath = new \DOMXPath( $this->xml );
 		$this->xpath->registerNameSpace( 'fake', 'http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1' );
+		$this->xpath->registerNameSpace( 'meta', '/xsd/imscsmetadata_v1p0' );
 	}
 
 	/**
@@ -248,6 +258,18 @@ class IMSCCParser {
 					foreach ( $element->attributes as $attr ) {
 						$result[ $attr->nodeName ] = $attr->nodeValue;
 					}
+				}
+
+				// Grab the meta guids for the resource if there are any
+				$guids = $this->xpath->query( ".//fake:resource[@identifier='" . $result['identifier'] . "']//meta:GUID" );
+				$guid_array = array();
+
+				foreach ( $guids as $guid ) {
+					array_push($guid_array, trim($guid->nodeValue));
+				}
+
+				if (count($guid_array) > 0) {
+					$result['guids'] = implode(",", $guid_array);
 				}
 
 				$this->resources[ $result['identifier'] ] = $result;
