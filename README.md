@@ -1,36 +1,21 @@
-PressBooks Textbook
-===================
+#Candela Utility
 
-A plugin that extends PressBooks for textbook authoring.
+A plugin that extends Pressbooks for textbook authoring.
 
-[PressBooks](https://github.com/pressbooks/pressbooks) is a content management and 'one button publishing' system for books.
+##Synopsis
 
-**PressBooks Textbook** adds functionality to PressBooks to make it easier to author textbooks as well. The features it currently offers are: 
-* Textbook Theme
-* TinyMCE table buttons
-* TinyMCE textbook buttons 
-* TinyMCE spell check
-* Search functionality
-* Creative Commons attribution
-* Prominent admin buttons (Import, Plugin)
-* Annotation features
-* Redistributing free electronic versions of your book
+[PressBooks](https://github.com/pressbooks/pressbooks) is a plugin that turns
+your Wordpress multisite installation into a book publishing platform. Candela
+Utility is a plugin that extends the functionality of Pressbooks by utilizing
+various action and filter hooks supplied by the Pressbooks API.
 
-Primary Use Case
-------------
-Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
-This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
+##Installation
 
-Contributors
-------------
-* [bdolor](https://github.com/bdolor) 
+1. Download or clone Candela Utility into your wordpress multisite plugins directory: `/path/to/wordpress/wp-content/plugins`
+2. Log in to your Wordpress multisite instance and navigate to `Network Admin > Plugins` and activate the Candela Utility plugin
 
-This plugin comes with and activates some existing wordpress plugins. Currently these plugins include:
-* [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras 
-* [MCE Table Buttons](https://github.com/wp-plugins/mce-table-buttons) jakemgold, 10up, thinkoomph 
-* [Hypothesis] (https://wordpress.org/plugins/hypothesis/) timmmmyboy
+*Note: Wordpress Multisite and Pressbooks are required in order for Candela Utility to work correctly*
 
-More Details
-------------
+##License
 
-See readme.txt for installation details
+GPLv2 - See LICENSE for more information

@@ -39,7 +39,7 @@
 
 <!-- MAIN CONTENT -->
 <main id="main-content">
-	<div id="post-<?php the_ID(); ?>" <?php post_class( pb_get_section_type($post) ); ?>>
+	<div id="post-<?php the_ID(); ?>" <?php post_class( pb_get_section_type( $post ) ); ?>>
 		<div class="entry-content">
 			<?php
 			  the_content();
