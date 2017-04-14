@@ -49,8 +49,6 @@
 
 				</table>
 			<?php } ?>
-
-			<?php echo pressbooks_copyright_license(); ?>
 		<?php } ?>
 	</div><!-- #inner -->
 </div><!-- #footer -->

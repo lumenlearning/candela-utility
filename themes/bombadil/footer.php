@@ -19,8 +19,6 @@ if ( ! is_front_page() ) {
 				<img class="lumen-footer-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/images/FooterLumenCandela.png" alt="Footer Logo Lumen Candela" />
 			<?php } ?>
 		<?php } ?>
-
-		<?php echo pressbooks_copyright_license(); ?>
 	</div><!-- #inner -->
 </div><!-- #footer -->
 
