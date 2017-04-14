@@ -25,6 +25,7 @@ class Candela_Utility_Editor {
 
 		add_shortcode( 'reveal-answer', array( &$this, 'reveal_answer_shortcode' ) );
 		add_shortcode( 'hidden-answer', array( &$this, 'hidden_answer_shortcode' ) );
+		add_shortcode( 'practice-area', array( &$this, 'practice_area_shortcode' ) );
 
 		add_action( 'admin_print_footer_scripts', array( &$this, 'add_custom_quicktags' ) );
 		add_filter( 'tiny_mce_before_init', array( &$this, 'unstrip_mathml' ) );
@@ -155,6 +156,18 @@ class Candela_Utility_Editor {
 
 		return '<div id="q' . $atts['a'] . '" class="hidden-answer" style="' . $hidden_answer_style . '">' . do_shortcode( $content ) . '</div></div>';
 
+	}
+
+	/**
+	 * Shortcode that adds a textarea element to the page.
+	 * Ex: [practice-area rows="8"][/practice-area].
+	 */
+	function practice_area_shortcode( $atts ) {
+		$atts = shortcode_atts(array(
+			"rows" => 'default 8'
+		), $atts);
+
+		return '<textarea rows="' . $atts['rows'] . '"></textarea>';
 	}
 
 	/**
