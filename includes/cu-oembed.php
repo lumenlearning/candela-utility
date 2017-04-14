@@ -46,6 +46,7 @@ function register_oembed_providers() {
 	);
 
 	wp_embed_register_handler( 'assessments.lumenlearning.com', '#https?://assessments\.lumenlearning\.com/assessments/(.*)#i', '\Candela\Utility\Oembed\lumen_asmnt_embed_handler' );
+	wp_embed_register_handler( 'www.desmos.com', '#https?://www\.desmos\.com/calculator/([^?]*)#i', '\Candela\Utility\Oembed\lumen_desmos_embed_handler' );
 
 	foreach ( $providers as $id => $info ) {
 		wp_embed_register_handler( $id, $info['regex'], '\Candela\Utility\Oembed\embed_handler' );
@@ -127,4 +128,33 @@ HTML;
 	$embed = sprintf( $iframe, $assessment_id, $params );
 
 	return apply_filters( 'embed_oea', $embed, $matches, $attr, $url, $rawattr );
+}
+
+/**
+ * Handles Desmos Calculator embeds. Called from \Candela\Utility\Oembed\register_oembed_providers()
+ *
+ * @param $matches
+ * @param $attr
+ * @param $url
+ * @param rawattr
+ */
+function lumen_desmos_embed_handler( $matches, $attr, $url, $rawattr ) {
+	$desmos_activity_id = esc_attr($matches[1]);
+
+	// Create url like: https://www.desmos.com/calculator/u2qz73ufju?embed&editable&apiKey=blah
+	$parameters = array(
+		'embed',
+		'editable',
+		'apiKey=' . DESMOS_API_KEY,
+	);
+
+	$params = implode('&', $parameters);
+
+	$iframe = <<<HTML
+	<iframe src="https://www.desmos.com/calculator/%s?%s"
+		frameborder="0" style="border:none;width:100%%;height:100%%;min-height:575px;"></iframe>
+HTML;
+	$embed = sprintf( $iframe, esc_attr($desmos_activity_id), $params);
+
+	return apply_filters( 'embed_desmos', $embed, $matches, $attr, $url, $rawattr );
 }
