@@ -179,11 +179,11 @@ function get_pb_page_id( $what = 'next' ) {
 	global $post;
 
 	$current_post_id = $post->ID;
-	$book_structure = \PressBooks\Book::getBookStructure();
+	$book_structure = \Pressbooks\Book::getBookStructure();
 	$order = $book_structure['__order'];
 	$pos = array_keys( $order );
 
-	$what = ( 'next' ? 'next' : 'prev' == $what );
+	$what = ( 'next' == $what ? 'next' : 'prev' );
 
 	// Move internal pointer to correct position
 	reset( $pos );
