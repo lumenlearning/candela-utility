@@ -106,17 +106,12 @@ function lumen_asmnt_embed_handler( $matches, $attr, $url, $rawattr ) {
 	restore_current_blog();
 
 	$parameters = array(
-		sprintf( 'src_url=https://assessments.lumenlearning.com/api/assessments/%d.xml', $assessment_id ),
-		sprintf( 'assessment_id=%d', $assessment_id ),
-		'results_end_point=https://assessments.lumenlearning.com/api',
-		'confidence_levels=true',
-		'enable_start=true',
-		'style=lumen_learning',
-		'assessment_kind=formative',
-		'external_user_id=' . esc_attr( $external_id ),
-		'external_context_id=' . esc_attr( $external_context_id ),
-		sprintf( 'iframe_resize_id=lumen_assessment_%d', $assessment_id ),
-	);
+        sprintf('assessment_id=%d', $assessment_id),
+        'embed=1',
+        'external_user_id=' . esc_attr($external_id),
+        'external_context_id=' . esc_attr($external_context_id),
+        sprintf('iframe_resize_id=lumen_assessment_%d', $assessment_id),
+    );
 
 	$params = implode( '&', $parameters );
 
