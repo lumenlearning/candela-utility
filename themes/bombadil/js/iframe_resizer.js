@@ -12,15 +12,12 @@
  * The element_id needed is passed as a query parameter `iframe_resize_id`
  */
 if (self == top) {
-    console.log(window.location.href + "setting up listener");
     window.addEventListener('message', function (e) {
-        console.log(window.location.href + "got message");
-        console.log(e.data);
         try {
             var message = JSON.parse(e.data);
             switch (message.subject) {
                 case 'lti.frameResize':
-                    var $iframe = jQuery('#' + message.element_id);
+                    var $iframe = jQuery('#' + message.iframe_resize_id);
                     if ($iframe.length == 1 && $iframe.hasClass('resizable')) {
                         var height = message.height;
                         if (height >= 5000) height = 5000;
