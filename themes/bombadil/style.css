@@ -1125,10 +1125,12 @@ ul.lti-mapping {
   background-color: transparent !important;
   padding: 0;
 }
-.page-template-default {
-  z-index: -1;
+body.page-template-default.logged-in {
+  z-index: auto;
 }
-
+body.page-template-default {
+  z-index: 1;
+}
 
 /* ------------------------------------------------------------------------ *
  * MEDIA QUERIES
