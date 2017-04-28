@@ -122,7 +122,7 @@ function lumen_asmnt_embed_handler( $matches, $attr, $url, $rawattr ) {
 
 	$iframe = <<<HTML
 	<iframe id="lumen_assessment_%d" class="resizable" src="https://assessments.lumenlearning.com/assessments/load?%s"
-		frameborder="0" style="border:none;width:100%%;height:100%%;min-height:575px;"></iframe>
+		frameborder="0" style="border:none;width:100%%;height:100%%;min-height:300px;"></iframe>
 HTML;
 
 	$embed = sprintf( $iframe, $assessment_id, $params );
