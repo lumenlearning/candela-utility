@@ -61,7 +61,7 @@ add_filter( 'pb_latex_renderers', '\Candela\Utility\Latex\add_latex_renderer_typ
 function enqueue_latex_scripts( $method ) {
 	if ( 'katex' == $method || 'Automattic_Latex_MOMCOM' == $method ) {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 		wp_enqueue_script( 'cu_asciimathteximg', CU_PLUGIN_URL . 'assets/js/ASCIIMathTeXImg.js' );
 		wp_enqueue_script( 'cu_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
 		wp_enqueue_style( 'cu_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
@@ -69,7 +69,7 @@ function enqueue_latex_scripts( $method ) {
 		add_shortcode( 'latex', '\Candela\Utility\Latex\katex_short_codes' );
 	} elseif ( 'mathjax' == $method ) {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 	}
 }
 add_action( 'pb_enqueue_latex_scripts', '\Candela\Utility\Latex\enqueue_latex_scripts' );
