@@ -47,6 +47,8 @@ function register_oembed_providers() {
 
 	wp_embed_register_handler( 'assessments.lumenlearning.com', '#https?://assessments\.lumenlearning\.com/assessments/(.*)#i', '\Candela\Utility\Oembed\lumen_asmnt_embed_handler' );
 	wp_embed_register_handler( 'www.desmos.com', '#https?://www\.desmos\.com/calculator/([^?]*)#i', '\Candela\Utility\Oembed\lumen_desmos_embed_handler' );
+  // handles urls like https://cerego.com/series/10309/learn & https://cerego.com/sets/796507/learn
+  wp_embed_register_handler( 'cerego.com', '#https?://cerego\.com/(?:series/\d+/learn|sets/\d+/learn)#i', '\Candela\Utility\Oembed\cerego_embed_handler' );
 
 	foreach ( $providers as $id => $info ) {
 		wp_embed_register_handler( $id, $info['regex'], '\Candela\Utility\Oembed\embed_handler' );
@@ -152,4 +154,20 @@ HTML;
 	$embed = sprintf( $iframe, esc_attr($desmos_activity_id), $params);
 
 	return apply_filters( 'embed_desmos', $embed, $matches, $attr, $url, $rawattr );
+}
+
+/**
+ * Handles cerego embeds, which just turns them into links for now. Called from \Candela\Utility\Oembed\register_oembed_providers()
+ *
+ * @param $matches
+ * @param $attr
+ * @param $url
+ * @param rawattr
+ */
+function cerego_embed_handler( $matches, $attr, $url, $rawattr ) {
+  $html = <<<HTML
+<a href="$matches[0]" target="_blank">Visit Cerego</a>
+HTML;
+
+  return apply_filters( 'embed_cerego', $html, $matches, $attr, $url, $rawattr );
 }
