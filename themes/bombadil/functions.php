@@ -33,6 +33,14 @@ function bombadil_theme_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'bombadil_theme_scripts' );
 
+/**
+ * Remove scripts that we don't want loaded
+ */
+function remove_unwanted_scripts() {
+	wp_dequeue_script( 'pressbooks/navbar' );
+}
+add_action( 'wp_enqueue_scripts', 'remove_unwanted_scripts', 100 );
+
 function bombadil_color_picker_assets( $hook ) {
 	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_script( 'color-picker', plugins_url( 'js/color-pick.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
