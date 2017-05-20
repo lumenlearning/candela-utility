@@ -455,12 +455,16 @@ nav {
 	background: #077fab;
 	position: relative;
   height: 105px;
+  min-height: 105px;
 	width: 100%;
 	z-index: 100;
 	box-shadow: none;
 	-o-box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
+}
+.nav-container nav {
+  min-height: 105px;
 }
 .header-nav {
 	max-width: 940px;
