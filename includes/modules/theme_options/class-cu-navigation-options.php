@@ -201,13 +201,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowHeaderField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_header',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_header',
-			$this->options['nav_show_header'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_header',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_header',
+			'value' => ( isset( $this->options['nav_show_header'] ) ) ? $this->options['nav_show_header'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -215,13 +215,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderHeaderLinkField( $args ) {
-		$this->renderCheckbox(
-			'nav_header_link',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_header_link',
-			$this->options['nav_header_link'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_header_link',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_header_link',
+			'value' => ( isset( $this->options['nav_header_link'] ) ) ? $this->options['nav_header_link'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -229,13 +229,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowSearchField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_search',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_search',
-			$this->options['nav_show_search'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_search',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_search',
+			'value' => ( isset( $this->options['nav_show_search'] ) ) ? $this->options['nav_show_search'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -243,13 +243,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowSmallTitleField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_small_title',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_small_title',
-			$this->options['nav_show_small_title'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_small_title',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_small_title',
+			'value' => ( isset( $this->options['nav_show_small_title'] ) ) ? $this->options['nav_show_small_title'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -257,13 +257,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowEditButtonField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_edit_button',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_edit_button',
-			$this->options['nav_show_edit_button'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_edit_button',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_edit_button',
+			'value' => ( isset( $this->options['nav_show_edit_button'] ) ) ? $this->options['nav_show_edit_button'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -271,13 +271,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowNavButtonsField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_navigation_buttons',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_navigation_buttons',
-			$this->options['nav_show_navigation_buttons'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_navigation_buttons',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_navigation_buttons',
+			'value' => ( isset( $this->options['nav_show_navigation_buttons'] ) ) ? $this->options['nav_show_navigation_buttons'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -285,13 +285,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowWaymakerLogoField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_waymaker_logo',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_waymaker_logo',
-			$this->options['nav_show_waymaker_logo'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_waymaker_logo',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_waymaker_logo',
+			'value' => ( isset( $this->options['nav_show_waymaker_logo'] ) ) ? $this->options['nav_show_waymaker_logo'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -299,13 +299,13 @@ class NavigationOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderShowFooterLogoField( $args ) {
-		$this->renderCheckbox(
-			'nav_show_footer_logo',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'nav_show_footer_logo',
-			$this->options['nav_show_footer_logo'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'nav_show_footer_logo',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'nav_show_footer_logo',
+			'value' => ( isset( $this->options['nav_show_footer_logo'] ) ) ? $this->options['nav_show_footer_logo'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**

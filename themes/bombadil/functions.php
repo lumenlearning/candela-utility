@@ -1,8 +1,5 @@
 <?php
 
-// Uncomment when testing xhtml export locally
-// add_filter( 'https_local_ssl_verify', '__return_false' );
-
 /**
  * Enqueues Bombadil Stylesheets
  */
@@ -12,17 +9,6 @@ function bombadil_theme_styles() {
 	wp_enqueue_style( 'style', get_stylesheet_directory_uri() . '/style.css' );
 }
 add_action( 'wp_print_styles', 'bombadil_theme_styles' );
-
-/**
- * Enqueues Bombadil Editor Stylesheet
- *
- */
-function bombadil_editor_styles() {
-
-  add_editor_style( 'editor-style.css' );
-
-}
-add_action( 'init', 'bombadil_editor_styles' );
 
 /**
  * Enqueues Bombadil Scripts
@@ -313,16 +299,7 @@ function show_small_title() {
  * @return bool
  */
 function show_edit_button() {
-<<<<<<< HEAD
-  if ( current_user_can( 'edit_post' ) ) {
-
-    return show_nav_options( 'navigation_show_edit_button' );
-
-  }
-
-=======
 	return show_nav_options( 'nav_show_edit_button' );
->>>>>>> renovate
 }
 
 /**
@@ -380,9 +357,8 @@ function show_logo() {
  */
 function toc_header_logo() {
 	$appearance = get_option( 'pressbooks_theme_options_appearance' );
-
-	if ( isset( $appearance['toc_header_logo'] ) ) {
-		if ( isset( $appearance['toc_header_link'] ) ) {
+	if ( isset( $appearance['toc_header_logo'] ) && strlen( $appearance['toc_header_logo'] ) !== 0 ) {
+		if ( isset( $appearance['toc_header_link'] ) && strlen( $appearance['toc_header_link'] ) !== 0 ) {
 			echo '<a href="' . $appearance['toc_header_link'] . '"><img class="toc-header-logo" src="' . $appearance['toc_header_logo'] . '" /></a>';
 		} else {
 			echo '<img class="toc-header-logo" src="' . $appearance['toc_header_logo'] . '" />';
@@ -399,8 +375,8 @@ function toc_header_logo() {
 function header_logo() {
 	$appearance = get_option( 'pressbooks_theme_options_appearance' );
 
-	if ( isset( $appearance['header_logo'] ) ) {
-		if ( isset( $appearance['header_link'] ) ) {
+	if ( isset( $appearance['header_logo'] ) && strlen( $appearance['header_logo'] ) !== 0 ) {
+		if ( isset( $appearance['header_link'] ) && strlen( $appearance['header_link'] ) !== 0 ) {
 			echo '<a href="' . $appearance['header_link'] . '"><img class="header-logo" src="' . $appearance['header_logo'] . '" /><a/>';
 		} else {
 			echo '<a href="' . get_home_url() . '"><img class="header-logo" src="' . $appearance['header_logo'] . '" /><a/>';
@@ -418,40 +394,7 @@ function header_logo() {
 function header_color() {
 	$appearance = get_option( 'pressbooks_theme_options_appearance' );
 
-<<<<<<< HEAD
-endif;
-
-function bombadil_mce_before_init_insert_formats( $init_array ) {
-  $style_formats = array(
-    array(
-      'title' => 'Try It',
-      'block' => 'div',
-      'classes' => 'tryit',
-      'wrapper' => true
-    ),
-  );
-
-  $init_array['style_formats'] = json_encode( $style_formats );
-
-  return $init_array;
-}
-add_filter( 'tiny_mce_before_init', 'bombadil_mce_before_init_insert_formats' );
-
-/**
- * Stop removal of MathML elements when switching between visual and text modes
- * in the text editor.
- */
-function bombadil_tinymce_fix( $init )
-{
-    // html elements being stripped
-    $init['extended_valid_elements'] = 'math[class|id|xmlns|altimg|alttext|display|overflow],semantics[encoding|definitionURL],annotation[encoding|definitionURL|cd|name|src],annotation-xml[cd|name|encoding|definitionURL|src],merror,mtext,mspace,mover[accent|align],munder,munderover,mstack,mrow[dir],msrow,mfenced[open|close|separators],menclose[notation],mphantom,msup,msub,msubsup,mmultiscripts,mi,mn,mo[fence],ms,mtable,mtr,mtd,mlabeledtr,mfrac[linethickness|bevelled|numalign|denomalign],mfraction,msline,msqrt,mroot,mscarries,mscarry';
-    // pass back to wordpress
-    return $init;
-}
-add_filter('tiny_mce_before_init', 'bombadil_tinymce_fix');
-=======
 	if ( ( isset( $appearance['header_color'] ) && strlen( $appearance['header_color'] ) !== 0 ) ) {
 		echo ' style="background-color: ' . $appearance['header_color'] . '"';
 	}
 }
->>>>>>> renovate

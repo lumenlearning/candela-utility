@@ -168,13 +168,15 @@ class AppearanceOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTocHeaderLogoField( $args ) {
-		$this->renderField(
-			'toc_header_logo',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'toc_header_logo',
-			$this->options['toc_header_logo'],
-			$args[0]
-		);
+		$this->renderField( array(
+			'id' => 'toc_header_logo',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'toc_header_logo',
+			'value' => ( isset( $this->options['toc_header_logo'] ) ) ? $this->options['toc_header_logo'] : '',
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		) );
 	}
 
 	/**
@@ -182,13 +184,15 @@ class AppearanceOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTocHeaderLinkField( $args ) {
-		$this->renderField(
-			'toc_header_link',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'toc_header_link',
-			$this->options['toc_header_link'],
-			$args[0]
-		);
+		$this->renderField( array(
+			'id' => 'toc_header_link',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'toc_header_link',
+			'value' => ( isset( $this->options['toc_header_link'] ) ) ? $this->options['toc_header_link'] : '',
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		) );
 	}
 
 	/**
@@ -196,13 +200,15 @@ class AppearanceOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderHeaderLogoField( $args ) {
-		$this->renderField(
-			'header_logo',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'header_logo',
-			$this->options['header_logo'],
-			$args[0]
-		);
+		$this->renderField( array(
+			'id' => 'header_logo',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'header_logo',
+			'value' => ( isset( $this->options['header_logo'] ) ) ? $this->options['header_logo'] : '',
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		) );
 	}
 
 	/**
@@ -210,13 +216,15 @@ class AppearanceOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderHeaderLinkField( $args ) {
-		$this->renderField(
-			'header_link',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'header_link',
-			$this->options['header_link'],
-			$args[0]
-		);
+		$this->renderField( array(
+			'id' => 'header_link',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'header_link',
+			'value' => ( isset( $this->options['header_link'] ) ) ? $this->options['header_link'] : '',
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		) );
 	}
 
 	/**
@@ -224,13 +232,15 @@ class AppearanceOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderHeaderColorField( $args ) {
-		$this->renderField(
-			'header_color',
-			'pressbooks_theme_options_' . $this->getSlug(),
-			'header_color',
-			$this->options['header_color'],
-			$args[0]
-		);
+		$this->renderField( array (
+			'id' => 'header_color',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'header_color',
+			'value' => ( isset( $this->options['header_color'] ) ) ? $this->options['header_color'] : '#077FAB',
+			'description' => $args[0],
+			'type' => 'text',
+			'class' => 'regular-text',
+		) );
 	}
 
 	/**
@@ -273,7 +283,7 @@ class AppearanceOptions extends \Pressbooks\Options {
 			'toc_header_link' => '',
 			'header_logo' => '',
 			'header_link' => '',
-			'header_color' => '#007FAB',
+			'header_color' => '#077FAB',
 		);
 	}
 
