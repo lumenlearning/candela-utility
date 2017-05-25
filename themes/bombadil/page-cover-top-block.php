@@ -1,6 +1,5 @@
 <section id="post-<?php the_ID(); ?>" <?php post_class( array( 'top-block', 'clearfix', 'home-post' ) ); ?>>
 
-	<?php pb_get_links( false ); ?>
 	<?php $metadata = \Candela\Utility\Book\candela_get_book_info_meta(); ?>
 
 	<div class="book-info">
