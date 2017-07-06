@@ -711,8 +711,8 @@ abandon .bcc-box in favor of pressbooks' native styling.
 .textbox.tryit h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #5f3f7d;
-  color: #fff;
+  background-color: #ded6e2;
+  color: #000;
   margin: -2% -3% 15px;
   padding: 15px 0;
   text-align: center;
@@ -724,20 +724,18 @@ abandon .bcc-box in favor of pressbooks' native styling.
   padding: 2% 3%;
   float: none;
 }
-.textbox.learning-objectives h3 {
-  background-color: #E8702A;
-}
-.textbox.learning-objectives {
-  background-color: #FCF0E9;
-}
+.textbox.learning-objectives h3,
 .bcc-box.bcc-highlight h3 {
+  color: #000;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #E8702A;
+  background-color: #DDD;
 }
+.textbox.learning-objectives,
 .bcc-box.bcc-highlight {
-  background-color: #FCF0E9;
+  background-color: #EEE;
 }
+.textbox.key-takeaways,
 .bcc-box.bcc-success {
   border-radius: 4px;
   margin-bottom: 15px;
@@ -747,17 +745,17 @@ abandon .bcc-box in favor of pressbooks' native styling.
   float: none;
   background-color: #EAF5EA;
 }
+.textbox.key-takeaways h3,
 .bcc-box.bcc-success h3 {
-  color: #fff;
+  color: #000;
   margin: -2% -3% 15px;
   padding: 15px 0;
   text-align: center;
-}
-.bcc-box.bcc-success h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #3A7A33;
+  background-color: #d2dcd2;
 }
+.textbox.exercises,
 .bcc-box.bcc-info {
   border-radius: 4px;
   margin-bottom: 15px;
@@ -767,17 +765,17 @@ abandon .bcc-box in favor of pressbooks' native styling.
   float: none;
   background-color: #E3EFF6;
 }
+.textbox.exercises h3,
 .bcc-box.bcc-info h3 {
-  color: #fff;
+  color: #000;
   margin: -2% -3% 15px;
   padding: 15px 0;
   text-align: center;
-}
-.bcc-box.bcc-info h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #0B6396;
+  background-color: #ccd7dd;
 }
+.textbox.examples,
 .bcc-box.bcc-warning {
   border-radius: 4px;
   margin-bottom: 15px;
@@ -787,16 +785,15 @@ abandon .bcc-box in favor of pressbooks' native styling.
   float: none;
   background-color: #F3E1E3;
 }
+.textbox.examples h3,
 .bcc-box.bcc-warning h3 {
-  color: #fff;
+  color: #000;
   margin: -2% -3% 15px;
   padding: 15px 0;
   text-align: center;
-}
-.bcc-box.bcc-warning h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #7A333A;
+  background-color: #dacacc;
 }
 .bcc-box-caption {
   display: block;

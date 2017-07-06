@@ -2,9 +2,104 @@ body {
 	font-family: "proxima-nova", sans-serif;
 }
 
-body#tinymce.wp-editor .textbox.learning-objectives h3 {
-  background-color: #E8702A;
+body#tinymce.wp-editor .textbox.tryit h3 {
+	text-transform: uppercase;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #ded6e2;
+  color: #000;
+  margin: -2% -3% 15px;
+  padding: 15px 0;
+  text-align: center;
 }
-body#tinymce.wp-editor .textbox.learning-objectives {
-  background-color: #FCF0E9;
+body#tinymce.wp-editor .textbox.tryit {
+  background-color: #f7eefc;
+  border-radius: 4px;
+  margin-top: 15px;
+  padding: 2% 3%;
+  float: none;
+}
+body#tinymce.wp-editor .textbox.learning-objectives h3,
+body#tinymce.wp-editor .bcc-box.bcc-highlight h3 {
+	text-transform: uppercase;
+	color: #000;
+	margin: -2% -3% 15px;
+	padding: 15px 0;
+	text-align: center;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+  background-color: #DDD;
+}
+body#tinymce.wp-editor .textbox.learning-objectives,
+body#tinymce.wp-editor .bcc-box.bcc-highlight {
+	border-radius: 4px;
+	margin-bottom: 15px;
+	padding: 2% 3%;
+	margin-inside: auto;
+	margin-outside: auto;
+	float: none;
+  background-color: #EEE;
+}
+body#tinymce.wp-editor .textbox.key-takeaways,
+body#tinymce.wp-editor .bcc-box.bcc-success {
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 2% 3%;
+  margin-inside: auto;
+  margin-outside: auto;
+  float: none;
+  background-color: #EAF5EA;
+}
+body#tinymce.wp-editor .textbox.key-takeaways h3,
+body#tinymce.wp-editor .bcc-box.bcc-success h3 {
+	text-transform: uppercase;
+  color: #000;
+  margin: -2% -3% 15px;
+  padding: 15px 0;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #d2dcd2;
+}
+body#tinymce.wp-editor .textbox.exercises,
+body#tinymce.wp-editor .bcc-box.bcc-info {
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 2% 3%;
+  margin-inside: auto;
+  margin-outside: auto;
+  float: none;
+  background-color: #E3EFF6;
+}
+body#tinymce.wp-editor .textbox.exercises h3,
+body#tinymce.wp-editor .bcc-box.bcc-info h3 {
+	text-transform: uppercase;
+  color: #000;
+  margin: -2% -3% 15px;
+  padding: 15px 0;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #ccd7dd;
+}
+body#tinymce.wp-editor .textbox.examples,
+body#tinymce.wp-editor .bcc-box.bcc-warning {
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 2% 3%;
+  margin-inside: auto;
+  margin-outside: auto;
+  float: none;
+  background-color: #F3E1E3;
+}
+body#tinymce.wp-editor .textbox.examples h3,
+body#tinymce.wp-editor .bcc-box.bcc-warning h3 {
+	text-transform: uppercase;
+  color: #000;
+  margin: -2% -3% 15px;
+  padding: 15px 0;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #dacacc;
 }
