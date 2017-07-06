@@ -1,9 +1,9 @@
 (function() {
-  tinymce.PluginManager.add('hide_answer', function(editor) {
+  tinymce.PluginManager.add( 'hide_answer', function( editor, url ) {
 
     editor.addButton('hide_answer', {
       title: 'Add Hidden Answer',
-      image: icon_url + 'editor-hide-answer-icon.png',
+	  image: icon_url + 'editor-hide-answer-icon.png',
       onclick: function( e ) {
         editor.windowManager.open({
           title: 'Setup a Hidden Answer',
@@ -12,6 +12,11 @@
               type: 'checkbox',
               name: 'latex',
               text: 'Is this a latex question?'
+            },
+            {
+              type: 'checkbox',
+              name: 'practiceArea',
+              text: 'Add a textarea for students to practice?'
             },
             {
               type: 'textbox',
@@ -25,7 +30,7 @@
               label: 'Hidden Text'
             }
           ],
-          onsubmit: function(e) {
+          onsubmit: function( e ) {
 
             // Generates Random ID to associate the reveal/hidden tags to eachother
             var qa_id = Math.floor(Math.random() * 1000000) + 1;
@@ -46,9 +51,16 @@
               hiddenText = "Put Answer Here";
             }
 
+            var practiceArea = "";
+
+            if (e.data.practiceArea) {
+              practiceArea = '[practice-area rows="8"][/practice-area]';
+            }
+
 
             editor.insertContent(
-              '[reveal-answer q="' + qa_id + '"]' + (!e.data.revealText ? 'Show Answer' : e.data.revealText) + '[/reveal-answer]' + '<br />' +
+              practiceArea + '<br />' +
+              '[reveal-answer q="' + qa_id + '"]' + (!e.data.revealText ? 'Show/Hide Answer' : e.data.revealText) + '[/reveal-answer]' + '<br />' +
               '[hidden-answer a="' + qa_id + '"]' + hiddenText + '[/hidden-answer]'
             );
           }

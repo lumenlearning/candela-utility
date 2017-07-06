@@ -11,27 +11,25 @@
 
  * The element_id needed is passed as a query parameter `iframe_resize_id`
  */
-if (self == top) {
-    window.addEventListener('message', function (e) {
-        try {
-            var message = JSON.parse(e.data);
-            switch (message.subject) {
-                case 'lti.frameResize':
-                    var $iframe = jQuery('#' + message.iframe_resize_id);
-                    if ($iframe.length == 1 && $iframe.hasClass('resizable')) {
-                        var height = message.height;
-                        if (height >= 5000) height = 5000;
-                        if (height <= 0) height = 1;
+window.addEventListener('message', function (e) {
+    try {
+        var message = JSON.parse(e.data);
+        switch (message.subject) {
+            case 'lti.frameResize':
+                var $iframe = jQuery('#' + message.iframe_resize_id);
+                if ($iframe.length == 1 && $iframe.hasClass('resizable')) {
+                    var height = message.height;
+                    if (height >= 5000) height = 5000;
+                    if (height <= 0) height = 1;
 
-                        $iframe.css('height', height + 'px');
-                    }
-                    break;
-            }
-        } catch (err) {
-            (console.error || console.log)('invalid message received from ', e.origin);
+                    $iframe.css('height', height + 'px');
+                }
+                break;
         }
-    });
-}
+    } catch (err) {
+        (console.error || console.log)('invalid message received from ', e.origin);
+    }
+});
 
 /**
  * Sends a Window.postMessage to resize the iframe

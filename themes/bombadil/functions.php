@@ -59,6 +59,11 @@ function bombadil_typekit_inline() {
 add_action( 'wp_head', 'bombadil_typekit_inline' );
 
 /**
+ * Add TinyMCE Editor Stylesheet (editor-style.css)
+ */
+add_editor_style('editor-style.css');
+
+/**
  * Returns an html blog of meta elements
  *
  * @return string $html metadata

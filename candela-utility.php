@@ -34,27 +34,31 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 	define( 'CU_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
-// -----------------------------------------------------------------------------
-// CLASS INCLUDES
-// -----------------------------------------------------------------------------
+function load_after_pressbooks() {
 
-include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
-include CU_PLUGIN_DIR . 'includes/cu-book-info.php';
-include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
-include CU_PLUGIN_DIR . 'includes/cu-catalog-theme.php';
-include CU_PLUGIN_DIR . 'includes/cu-edit-sort.php';
-include CU_PLUGIN_DIR . 'includes/cu-functions.php';
-include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
-include CU_PLUGIN_DIR . 'includes/cu-import.php';
-include CU_PLUGIN_DIR . 'includes/cu-latex.php';
-include CU_PLUGIN_DIR . 'includes/cu-oembed.php';
-include CU_PLUGIN_DIR . 'includes/cu-theme-options.php';
-include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
+	// -----------------------------------------------------------------------------
+	// CLASS INCLUDES
+	// -----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
-// MODULE INCLUDES
-// -----------------------------------------------------------------------------
+	include CU_PLUGIN_DIR . 'includes/cu-admin-theme.php';
+	include CU_PLUGIN_DIR . 'includes/cu-book-info.php';
+	include CU_PLUGIN_DIR . 'includes/cu-book-theme.php';
+	include CU_PLUGIN_DIR . 'includes/cu-catalog-theme.php';
+	include CU_PLUGIN_DIR . 'includes/cu-edit-sort.php';
+	include CU_PLUGIN_DIR . 'includes/cu-functions.php';
+	include CU_PLUGIN_DIR . 'includes/cu-gettext.php';
+	include CU_PLUGIN_DIR . 'includes/cu-import.php';
+	include CU_PLUGIN_DIR . 'includes/cu-latex.php';
+	include CU_PLUGIN_DIR . 'includes/cu-oembed.php';
+	include CU_PLUGIN_DIR . 'includes/cu-theme-options.php';
+	include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 
-include CU_PLUGIN_DIR . 'includes/modules/import/imscc/class-cu-imscc.php';
-include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-navigation-options.php';
-include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-appearance-options.php';
+	// -----------------------------------------------------------------------------
+	// MODULE INCLUDES
+	// -----------------------------------------------------------------------------
+
+	include CU_PLUGIN_DIR . 'includes/modules/import/imscc/class-cu-imscc.php';
+	include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-navigation-options.php';
+	include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-appearance-options.php';
+}
+add_action( 'plugins_loaded', 'Candela\Utility\load_after_pressbooks', 11 );

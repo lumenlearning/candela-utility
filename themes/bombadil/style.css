@@ -724,10 +724,19 @@ abandon .bcc-box in favor of pressbooks' native styling.
   padding: 2% 3%;
   float: none;
 }
+.textbox.learning-objectives h3 {
+  background-color: #E8702A;
+}
+.textbox.learning-objectives {
+  background-color: #FCF0E9;
+}
 .bcc-box.bcc-highlight h3 {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #111111;
+  background-color: #E8702A;
+}
+.bcc-box.bcc-highlight {
+  background-color: #FCF0E9;
 }
 .bcc-box.bcc-success {
   border-radius: 4px;

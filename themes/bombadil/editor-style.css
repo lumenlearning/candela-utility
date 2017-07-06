@@ -1,3 +1,10 @@
 body {
 	font-family: "proxima-nova", sans-serif;
 }
+
+body#tinymce.wp-editor .textbox.learning-objectives h3 {
+  background-color: #E8702A;
+}
+body#tinymce.wp-editor .textbox.learning-objectives {
+  background-color: #FCF0E9;
+}

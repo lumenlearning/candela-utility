@@ -38,7 +38,7 @@ function register_oembed_providers() {
 			'regex' => '#https?://(www\.openassessments\.com)/assessments/(.*)#i',
 		),
 		'wwwopenassessments.org' => array(
-			'regex' => '#https?://(www.\openassessments\.org)/assessments/(.*)#i',
+			'regex' => '#https?://(www\.openassessments\.org)/assessments/(.*)#i',
 		),
 		'oea.herokuapp.com' => array(
 			'regex' => '#https?://(oea\.herokuapp\.com)/assessments/(.*)#i',
@@ -107,13 +107,13 @@ function lumen_asmnt_embed_handler( $matches, $attr, $url, $rawattr ) {
 	$external_context_id = $_GET['lti_context_id'];
 	restore_current_blog();
 
-	$parameters = array(
-        sprintf('assessment_id=%d', $assessment_id),
-        'embed=1',
-        'external_user_id=' . esc_attr($external_id),
-        'external_context_id=' . esc_attr($external_context_id),
-        sprintf('iframe_resize_id=lumen_assessment_%d', $assessment_id),
-    );
+  $parameters = array(
+      sprintf('assessment_id=%d', $assessment_id),
+      'embed=1',
+      'external_user_id=' . esc_attr($external_id),
+      'external_context_id=' . esc_attr($external_context_id),
+      sprintf('iframe_resize_id=lumen_assessment_%d', $assessment_id),
+  );
 
 	$params = implode( '&', $parameters );
 
