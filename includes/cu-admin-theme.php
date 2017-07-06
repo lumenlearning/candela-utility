@@ -20,7 +20,7 @@ function remove_pressbooks_branding() {
 	remove_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 
 }
-add_action( 'plugins_loaded', '\Candela\Utility\Admin\remove_pressbooks_branding' );
+add_action( 'wp_loaded', '\Candela\Utility\Admin\remove_pressbooks_branding' );
 
 /**
  * Replace logo on admin login page
