@@ -15,6 +15,7 @@ namespace Candela\Utility;
  */
 function add_meta_boxes() {
 
+  lumen_catalog_info_meta_box();
 	lumen_course_info_meta_box();
 	cover_image_attribution_meta_box();
 
@@ -22,6 +23,29 @@ function add_meta_boxes() {
 
 }
 add_action( 'custom_metadata_manager_init_metadata', '\Candela\Utility\add_meta_boxes' );
+
+/**
+ * Defines "Book Info > Edit Book Information > Lumen Course Information" metabox
+ */
+function lumen_catalog_info_meta_box() {
+
+	x_add_metadata_group( $group = 'lumen-catalog-information', 'metadata', array(
+		'label' => __( 'Lumen Catalog Information', 'pressbooks' ),
+		'priority' => 'high',
+		'required_cap' => 'edit_lumen_catalog_info_meta', // So that only super admins can edit
+	) );
+
+	$fields = array(
+		'candela-is-master-course' => array(
+			'label' => __( 'Lumen Master Course' ),
+      'field_type' => 'checkbox',
+			'description' => __( 'Master courses appear in our public catalog. Never give customers editing privileges to master courses.' ),
+		),
+	);
+
+	render_meta_box_fields( $group, $fields );
+
+}
 
 /**
  * Defines "Book Info > Edit Book Information > Lumen Course Information" metabox

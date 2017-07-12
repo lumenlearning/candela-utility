@@ -97,3 +97,23 @@ add_filter( 'pb_epub_has_dependencies', '\Candela\Utility\skip_epub_dependency_c
  * convert_smilies() function.
  */
 add_filter( 'option_use_smilies', '__return_false' );
+
+
+/**
+ * Redirect reviewer after successful login.
+ *
+ * @param string $redirect_to URL to redirect to.
+ * @param string $request URL the user is coming from.
+ * @param object $user Logged user's data.
+ * @return string
+ */
+function reviewer_login_redirect($redirect_to, $request, $user)
+{
+  if (isset($user->roles) && is_array($user->roles)) {
+    if (in_array('reviewer', $user->roles)) {
+      return get_site_url();
+    }
+  }
+  return $redirect_to;
+}
+add_filter( 'login_redirect', '\Candela\Utility\reviewer_login_redirect', 10, 3 );

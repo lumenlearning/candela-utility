@@ -83,6 +83,7 @@ class Candela_Utility_Editor {
 	function add_editor_scripts( $plugin_array ) {
 
 		$plugin_array['tryit'] = CU_PLUGIN_URL . 'assets/js/editor-tryit.js';
+		$plugin_array['ohm_question'] = CU_PLUGIN_URL . 'assets/js/editor-ohm-question.js';
 		$plugin_array['hide_answer'] = CU_PLUGIN_URL . 'assets/js/editor-hide-answer.js';
 
 		return $plugin_array;
@@ -98,6 +99,7 @@ class Candela_Utility_Editor {
 	function add_first_row_buttons( $buttons ) {
 
 		array_push( $buttons, 'hide_answer' );
+		array_push( $buttons, 'ohm_question' );
 		return $buttons;
 
 	}

@@ -49,6 +49,8 @@ function register_oembed_providers() {
 	wp_embed_register_handler( 'www.desmos.com', '#https?://www\.desmos\.com/calculator/([^?]*)#i', '\Candela\Utility\Oembed\lumen_desmos_embed_handler' );
   // handles urls like https://cerego.com/series/10309/learn & https://cerego.com/sets/796507/learn
   wp_embed_register_handler( 'cerego.com', '#https?://cerego\.com/(?:series/\d+/learn|sets/\d+/learn)#i', '\Candela\Utility\Oembed\cerego_embed_handler' );
+  wp_embed_register_handler( 'ohm.lumenlearning.com', '#https?://ohm\.lumenlearning\.com/multiembedq\.php\?id=([\d-]+)#i', '\Candela\Utility\Oembed\ohm_embed_handler' );
+  add_shortcode( 'ohm_question', '\Candela\Utility\Oembed\ohm_shortcode_handler' );
 
 	foreach ( $providers as $id => $info ) {
 		wp_embed_register_handler( $id, $info['regex'], '\Candela\Utility\Oembed\embed_handler' );
@@ -154,6 +156,65 @@ HTML;
 	$embed = sprintf( $iframe, esc_attr($desmos_activity_id), $params);
 
 	return apply_filters( 'embed_desmos', $embed, $matches, $attr, $url, $rawattr );
+}
+
+/**
+ * Handles OHM embeds. Called from \Candela\Utility\Oembed\register_oembed_providers()
+ *
+ * @param $matches
+ * @param $attr
+ * @param $url
+ * @param rawattr
+ */
+function ohm_embed_handler( $matches, $attr, $url, $rawattr ) {
+	$question_ids = $matches[1];
+
+	return apply_filters( 'embed_ohm', create_ohm_iframe($question_ids), $matches, $attr, $url, $rawattr );
+}
+
+function ohm_shortcode_handler($atts, $content = null){
+  if( $atts == '' ){
+    $atts = [];
+  }
+  return create_ohm_iframe($content, $atts);
+}
+
+/**
+ * Return an OHM Iframe
+ *
+ * @param $ids_string String the OHM question IDs as a string "123-12314-123"
+ * @param $options Array configuration options: frame_id, height, sameseed
+ */
+function create_ohm_iframe($ids_string, $options=[]){
+  $question_ids = explode ( "-",  $ids_string );
+  $question_ids = array_map('intval', $question_ids);
+
+  if( array_key_exists('frame_id', $options) ){
+    $frame_id = esc_attr($options['frame_id']);
+  } else {
+    $frame_id = "ohm" . $question_ids[0];
+  }
+  if( array_key_exists('height', $options) ){
+    $height = intval($options['height']);
+  } else {
+    $height = 150;
+  }
+
+  $parameters = array(
+      'id=' . implode('-', $question_ids),
+      'theme=oea',
+      'iframe_resize_id=' . $frame_id,
+  );
+
+  if( array_key_exists('sameseed', $options) ){
+    array_push($parameters, 'sameseed=1');
+  }
+
+  $params_string = implode('&', $parameters);
+
+ return <<<HTML
+<iframe id="$frame_id" class="resizable" src="https://ohm.lumenlearning.com/multiembedq.php?$params_string" width="100%" height="$height"></iframe>
+HTML;
 }
 
 /**

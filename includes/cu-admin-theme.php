@@ -132,7 +132,7 @@ function adjust_admin_menu() {
 
 	remove_menu_page( 'plugins.php' );
 
-	add_submenu_page( 'pb_export', 'Export to Thin-CC', 'Thin-CC Export', 'export', 'tools.php?page=candela-thin-export.php' );
+	add_submenu_page( 'pb_export', 'Export Common Cartridge', 'Common Cartridge', 'export', 'tools.php?page=candela-thin-export.php' );
 
 	// Remove items that non-admins should not see
 	if ( ! ( in_array( 'administrator', $current_user->roles ) || is_super_admin() ) ) {

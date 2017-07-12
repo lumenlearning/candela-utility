@@ -35,6 +35,10 @@ if ( ! defined( 'CU_PLUGIN_URL' ) ) {
 }
 
 function load_after_pressbooks() {
+	// -----------------------------------------------------------------------------
+	// PLUGIN UPDATE SCRIPTS
+	// -----------------------------------------------------------------------------
+  include CU_PLUGIN_DIR . 'candela-utility-updates.php';
 
 	// -----------------------------------------------------------------------------
 	// CLASS INCLUDES
@@ -52,6 +56,7 @@ function load_after_pressbooks() {
 	include CU_PLUGIN_DIR . 'includes/cu-oembed.php';
 	include CU_PLUGIN_DIR . 'includes/cu-theme-options.php';
 	include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
+	include CU_PLUGIN_DIR . 'includes/cu-assignment-meta.php';
 
 	// -----------------------------------------------------------------------------
 	// MODULE INCLUDES
