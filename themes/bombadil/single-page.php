@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	<?php if ( $citation = Candela\Citation::renderCitation( $post->ID ) ) { ?>
+	<?php if ( $citation = CandelaCitation::renderCitation( $post->ID ) ) { ?>
 		<!-- CITATIONS AND ATTRIBUTIONS -->
 		<section role="contentinfo">
 			<div class="post-citations sidebar">

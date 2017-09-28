@@ -64,6 +64,14 @@ add_action( 'wp_head', 'bombadil_typekit_inline' );
 add_editor_style('editor-style.css');
 
 /**
+ * Adds sendIframeResize function call to the footer.
+ */
+function send_iframe_resize() {
+	echo '<script>if (typeof sendIframeResize === "function") { sendIframeResize(); }</script>';
+}
+add_action( 'wp_footer', 'send_iframe_resize', 1000 );
+
+/**
  * Returns an html blog of meta elements
  *
  * @return string $html metadata

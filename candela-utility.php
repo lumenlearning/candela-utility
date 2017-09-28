@@ -4,7 +4,7 @@
  * Candela Utility
  * Plugin Name: Candela Utility
  * Description: Candela Utility is a helper plugin that manages additional configuration and bootstrapping on top of Pressbooks.
- * Version: 0.4.0
+ * Version: 0.3
  * Author: Lumen Learning
  * Author URI: http://lumenlearning.com
  * Text Domain: lumen
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -----------------------------------------------------------------------------
 
 if ( ! defined( 'CU_PLUGIN_VERSION' ) ) {
-	define( 'CU_PLUGIN_VERSION', '0.4.0' );
+	define( 'CU_PLUGIN_VERSION', '0.3' );
 }
 
 if ( ! defined( 'CU_PLUGIN_DIR' ) ) {

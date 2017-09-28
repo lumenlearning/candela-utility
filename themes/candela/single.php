@@ -42,7 +42,7 @@ if ( have_posts() ) {
 		<!-- place hidden GUIDs on applicable pages -->
 		<?php do_action( 'display_outcome_html', $post->ID ); ?>
 
-		<?php if ( $citation = Candela\Citation::renderCitation( $post->ID ) ) { ?>
+		<?php if ( $citation = CandelaCitation::renderCitation( $post->ID ) ) { ?>
 			<section role="contentinfo">
 				<div class="post-citations sidebar">
 					<div role="button" aria-pressed="false" id="citation-header-<?php print $post->ID; ?>" class="collapsed h3-styling"><?php _e( 'Licenses and Attributions' ); ?></div>

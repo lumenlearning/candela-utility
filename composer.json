@@ -1,7 +1,6 @@
 {
   "name": "lumenlearning/candela-utility",
   "license": "GPL-2.0+",
-  "version": "0.4.0",
   "type" : "wordpress-plugin",
   "description": "Candela Utility is a plugin that extends the functionality of Pressbooks by utilizing various action and filter hooks supplied by the Pressbooks API.",
   "homepage": "https://github.com/lumenlearning/candela-utility",
