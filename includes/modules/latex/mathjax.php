@@ -47,4 +47,20 @@ class mathjax {
 
 	function wrapper( $wrapper = false ) {}
 
+	function url() {
+
+		$this->url = add_query_arg(
+			urlencode_deep( array(
+				'latex' => $this->latex,
+				'bg' => $this->bg_hex,
+				'fg' => $this->fg_hex,
+				's' => $this->size,
+				'zoom' => $this->zoom,
+			) ),
+			( is_ssl() ? 'https' : 'http' ) . '://s0.wp.com/latex.php'
+		);
+
+		return $this->url;
+	}
+
 }

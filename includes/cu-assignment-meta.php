@@ -28,8 +28,8 @@ function assignment_metabox_render($post) {
     $data = get_post_meta($post->ID, CANDELA_ASSIGNMENT_POINTS, true);
     ?>
     <div class="inside">
-        <label for="assignment_points_possible"><?php _e( "Set the points possible for assignments/discussions. Default is 10 for assignments, and 5 for discussions. Set it to 0 for a discussion to not be gradable.", 'textdomain' ); ?></label>
-        <input id="assignment_points_possible" class="widefat" type="text" name="candela_assignment_points_possible" placeholder="ie. 10" pattern="[0-9]*" value="<?php echo (isset($data)) ? esc_attr($data) : ''; ?>"/>
+        <label for="assignment_points_possible"><?php _e( "Set the points possible if this should be an assignment.", 'textdomain' ); ?></label>
+        <input id="assignment_points_possible" class="widefat" type="text" name="candela_assignment_points_possible" placeholder="ie. 20" pattern="[0-9]*" value="<?php echo (isset($data)) ? esc_attr($data) : ''; ?>"/>
     </div>
     <?php
 }
