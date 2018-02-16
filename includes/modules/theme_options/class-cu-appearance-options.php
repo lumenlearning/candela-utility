@@ -237,7 +237,7 @@ class AppearanceOptions extends \Pressbooks\Options {
 			'id' => 'header_color',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'header_color',
-			'value' => ( isset( $this->options['header_color'] ) ) ? $this->options['header_color'] : '#077FAB',
+			'value' => ( isset( $this->options['header_color'] ) && $this->options['header_color'] != '0' ) ? $this->options['header_color'] : '#077FAB',
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'regular-text',

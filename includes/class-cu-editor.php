@@ -26,6 +26,9 @@ class Candela_Utility_Editor {
 		add_shortcode( 'reveal-answer', array( &$this, 'reveal_answer_shortcode' ) );
 		add_shortcode( 'hidden-answer', array( &$this, 'hidden_answer_shortcode' ) );
 		add_shortcode( 'practice-area', array( &$this, 'practice_area_shortcode' ) );
+		add_shortcode( 'glossary-page', array( &$this, 'glossary_page_shortcode' ) );
+		add_shortcode( 'glossary-term', array( &$this, 'glossary_term_shortcode' ) );
+		add_shortcode( 'glossary-definition', array( &$this, 'glossary_definition_shortcode' ) );
 
 		add_action( 'admin_print_footer_scripts', array( &$this, 'add_custom_quicktags' ) );
 		add_filter( 'tiny_mce_before_init', array( &$this, 'unstrip_mathml' ) );
@@ -83,8 +86,10 @@ class Candela_Utility_Editor {
 	function add_editor_scripts( $plugin_array ) {
 
 		$plugin_array['tryit'] = CU_PLUGIN_URL . 'assets/js/editor-tryit.js';
-		$plugin_array['ohm_question'] = CU_PLUGIN_URL . 'assets/js/editor-ohm-question.js';
 		$plugin_array['hide_answer'] = CU_PLUGIN_URL . 'assets/js/editor-hide-answer.js';
+		$plugin_array['ohm_question'] = CU_PLUGIN_URL . 'assets/js/editor-ohm-question.js';
+		$plugin_array['glossary_page'] = CU_PLUGIN_URL . 'assets/js/editor-glossary-page.js';
+		$plugin_array['glossary_entry'] = CU_PLUGIN_URL . 'assets/js/editor-glossary-entry.js';
 
 		return $plugin_array;
 
@@ -100,6 +105,9 @@ class Candela_Utility_Editor {
 
 		array_push( $buttons, 'hide_answer' );
 		array_push( $buttons, 'ohm_question' );
+		array_push( $buttons, 'glossary_page' );
+		array_push( $buttons, 'glossary_entry' );
+
 		return $buttons;
 
 	}
@@ -170,6 +178,30 @@ class Candela_Utility_Editor {
 		), $atts);
 
 		return '<textarea rows="' . $atts['rows'] . '"></textarea>';
+	}
+
+	/**
+	 * Shortcode that adds a glossary page wrapper element.
+	 * Ex: [glossary-page][/glossary-page].
+	 */
+	function glossary_page_shortcode( $atts, $content = null ) {
+		return '<div class="titlepage"><dl>' . do_shortcode( $content ) . '</dl></div>';
+	}
+
+	/**
+	 * Shortcode that adds a glossary term (used by 'glossary-entry' shortcode)
+	 * Ex: [glossary-term]Batman[/glossary-term].
+	 */
+	function glossary_term_shortcode( $atts, $content = null ) {
+		return '<dt>' . do_shortcode( $content ) . '</dt>';
+	}
+
+	/**
+	 * Shortcode that adds a glossary definition (used by 'glossary-entry' shortcode)
+	 * Ex: [glossary-definition]I am the night[/glossary-definition].
+	 */
+	function glossary_definition_shortcode( $atts, $content = null ) {
+		return '<dd>' . do_shortcode( $content ) . '</dd>';
 	}
 
 	/**

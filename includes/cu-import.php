@@ -35,3 +35,25 @@ function add_imscc_import_file_type( array $file_types ) {
 	return $file_types;
 }
 add_filter( 'pb_import_file_types', '\Candela\Utility\Import\add_imscc_import_file_type' );
+
+/**
+ * Return a file upload field for imscc instead of PB default html input field.
+ */
+function add_file_upload_field_imscc() {
+	$js = '<script type="text/javascript">
+					jQuery(function($) {
+						$(".pb-html-target").change(
+							function() {
+								var val = $(".pb-html-target").val();
+								if (val == "imscc") {
+									$("#pb-file").show();
+									$("#pb-www").hide();
+								}
+							}
+						);
+					});
+				</script>';
+
+	return $js;
+}
+add_filter( 'pb_import_table_cell', '\Candela\Utility\Import\add_file_upload_field_imscc' );

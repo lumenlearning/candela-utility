@@ -57,6 +57,7 @@ function load_after_pressbooks() {
 	include CU_PLUGIN_DIR . 'includes/cu-theme-options.php';
 	include CU_PLUGIN_DIR . 'includes/class-cu-editor.php';
 	include CU_PLUGIN_DIR . 'includes/cu-assignment-meta.php';
+	include CU_PLUGIN_DIR . 'includes/cu-catalog-redirect.php';
 
 	// -----------------------------------------------------------------------------
 	// MODULE INCLUDES
@@ -65,5 +66,6 @@ function load_after_pressbooks() {
 	include CU_PLUGIN_DIR . 'includes/modules/import/imscc/class-cu-imscc.php';
 	include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-navigation-options.php';
 	include CU_PLUGIN_DIR . 'includes/modules/theme_options/class-cu-appearance-options.php';
+	include CU_PLUGIN_DIR . 'includes/modules/api/html-export-api-endpoint.php';
 }
 add_action( 'plugins_loaded', 'Candela\Utility\load_after_pressbooks', 11 );

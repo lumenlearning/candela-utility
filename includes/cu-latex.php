@@ -69,7 +69,7 @@ function enqueue_latex_scripts( $method ) {
 		add_shortcode( 'latex', '\Candela\Utility\Latex\katex_short_codes' );
 	} elseif ( 'mathjax' == $method ) {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+		wp_enqueue_script( 'cu_mathjax', 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 	}
 }
 add_action( 'pb_enqueue_latex_scripts', '\Candela\Utility\Latex\enqueue_latex_scripts' );
@@ -79,7 +79,7 @@ add_action( 'pb_enqueue_latex_scripts', '\Candela\Utility\Latex\enqueue_latex_sc
  *
  * @param string $method
  */
-function katex_config_scripts( $method ) {
+function latex_config_scripts( $method ) {
 	if ( 'katex' == $method ) {
 		echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
@@ -93,8 +93,8 @@ function katex_config_scripts( $method ) {
 	} elseif ( 'mathjax' == $method ) {
 		echo '<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
-				TeX: { extensions: ["cancel.js", "mhchem.js"] },
-				tex2jax: {inlineMath: [["[latex]","[/latex]"]] }
+				TeX: { extensions: [ "cancel.js", "mhchem.js" ] },
+				tex2jax: {inlineMath: [ [ "[latex]", "[/latex]" ] ] }
 			});
 		</script>
 		<script type="text/javascript">
@@ -102,7 +102,7 @@ function katex_config_scripts( $method ) {
 		</script>';
 	}
 }
-add_filter( 'pb_add_latex_config_scripts', '\Candela\Utility\Latex\katex_config_scripts' );
+add_filter( 'pb_add_latex_config_scripts', '\Candela\Utility\Latex\latex_config_scripts' );
 
 /**
  * Katex shortcodes

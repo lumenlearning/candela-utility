@@ -18,3 +18,11 @@ function enqueue_catalog_stylesheets() {
 
 }
 add_action( 'init', '\Candela\Utility\Catalog\enqueue_catalog_stylesheets' );
+
+/**
+ * Change the catalog title from 'Pressbooks' to 'Lumen'
+ */
+function change_catalog_title() {
+  return 'Lumen';
+}
+add_filter( 'pb_catalog_title', 'Candela\Utility\Catalog\change_catalog_title' );

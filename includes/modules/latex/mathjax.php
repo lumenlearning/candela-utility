@@ -57,7 +57,7 @@ class mathjax {
 				's' => $this->size,
 				'zoom' => $this->zoom,
 			) ),
-			( is_ssl() ? 'https' : 'http' ) . '://s0.wp.com/latex.php'
+			( is_ssl() ? 'https' : 'http' ) . '://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured'
 		);
 
 		return $this->url;
