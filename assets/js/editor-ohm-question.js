@@ -14,6 +14,11 @@
                         },
                         {
                             type: 'checkbox',
+                            name: 'hide_question_numbers',
+                            text: 'Hide question numbers?'
+                        },
+                        {
+                            type: 'checkbox',
                             name: 'sameseed',
                             text: 'Use same seed?'
                         },
@@ -43,6 +48,10 @@
 
                         if (e.data.height) {
                             options = options + ' height="' + e.data.height + '"';
+                        }
+
+                        if (e.data.hide_question_numbers) {
+                            options = options + " hide_question_numbers=1";
                         }
 
                         editor.insertContent('[ohm_question' + options + ']' + e.data.question_ids + '[/ohm_question]');
