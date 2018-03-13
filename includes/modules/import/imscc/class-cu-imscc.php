@@ -15,6 +15,7 @@ use \Pressbooks\Book;
 
 
 class IMSCC extends Import {
+	CONST TYPE_OF = 'imscc';
 
 	/**
 	 * Instantiate Class.
