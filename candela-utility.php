@@ -10,6 +10,7 @@
  * Text Domain: lumen
  * License: GPLv2 or later
  * GitHub Plugin URI: https://github.com/lumenlearning/candela
+ * Pressbooks tested up to: 4.9.4
  */
 
 namespace Candela\Utility;
