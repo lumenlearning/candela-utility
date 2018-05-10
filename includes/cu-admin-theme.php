@@ -147,7 +147,7 @@ function adjust_admin_menu() {
 
 	// Remove items for non-admins and non-editors
 	if ( ! ( in_array( 'administrator' , $current_user->roles ) || in_array( 'editor', $current_user->roles ) || is_super_admin() ) ) {
-		$metadata = new \PressBooks\Metadata();
+		$metadata = new \Pressbooks\Metadata();
 		$meta = $metadata->getMetaPost();
 		if ( ! empty( $meta ) ) {
 			$book_info_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
