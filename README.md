@@ -12,7 +12,7 @@ Candela Utility is a plugin that extends the functionality of Pressbooks by util
 ### Composer
 
 1. From the root Wordpress installation,
-run `composer require lumenlearning/candela-utility:1.0`
+run `composer require lumenlearning/candela-utility:1.0` and `composer install`
 
 ### Manually
 
