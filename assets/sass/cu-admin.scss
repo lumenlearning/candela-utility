@@ -53,10 +53,9 @@ $adminbar-input-background:      $white;
 
 /* Admin Bar */
 
-#wpadminbar {
+#wpadminbar, #wp-admin-bar-site-name {
 	color: $white;
 	background: $base-blue;
-	.ab-item,
 	a.ab-item,
 	&> #wp-toolbar span.ab-label,
 	&> #wp-toolbar span.noticon {
@@ -64,11 +63,11 @@ $adminbar-input-background:      $white;
 	}
 	.ab-icon,
 	.ab-icon:before,
-	.ab-item:before,
-	.ab-item:after {
+	a.ab-item:before,
+	a.ab-item:after {
 		color: $white;
 	}
-	#wp-admin-bar-menu-toggle .ab-item {
+	#wp-admin-bar-menu-toggle a.ab-item {
 		background: $dark-blue;
 		.ab-icon,
 		.ab-icon:before {
@@ -94,6 +93,9 @@ $adminbar-input-background:      $white;
 				}
 			}
 		}
+	}
+	.you-are-here {
+		background-color: $dark-blue;
 	}
 }
 

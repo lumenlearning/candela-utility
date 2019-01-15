@@ -9,20 +9,19 @@ switch ( $update ) {
 }
 
 function update_0001(){
-  // https://codex.wordpress.org/Function_Reference/add_role
-  $result = add_role(
-      'reviewer',
-      __( 'Reviewer' ),
-      array(
-          'read'               => true,
-          'read_private_posts' => true,  // pressbooks capability
-          'edit_posts'         => false,
-          'edit_others_posts'  => false,
-          'delete_posts'       => false
-      )
-  );
+	// https://codex.wordpress.org/Function_Reference/add_role
+	$result = add_role(
+		'reviewer',
+		__( 'Reviewer' ),
+		array(
+			'read' => true,
+			'read_private_posts' => true, // pressbooks capability
+			'edit_posts' => false,
+			'edit_others_posts' => false,
+			'delete_posts' => false
+		)
+	);
 
-  //  $result = remove_role('reviewer');
-  update_option( 'candela_utility_updates', '2' );
+	// $result = remove_role('reviewer');
+	update_option( 'candela_utility_updates', '2' );
 }
-
