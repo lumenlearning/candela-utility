@@ -9,10 +9,8 @@
 
 namespace Candela\Utility\Import;
 
-add_action( 'pb_initialize_import', function ( $a ) {
-		$a[] = \Candela\Utility\Modules\Import\IMSCC\IMSCC::init();
-		return $a;
-} );
+
+add_action( 'pb_initialize_import', array( '\Candela\Utility\Modules\Import\IMSCC\IMSCC', 'init' ) );
 
 /**
  * Adds IMS-CC (Common Cartridge) as an option in import select field.

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ruleset name="Pressbooks">
-	<description>Pressbooks Coding Standards</description>
+  <description>Pressbooks Coding Standards</description>
 
-	<!-- Show colors in console -->
-	<arg value="-colors"/>
+  <!-- Show colors in console -->
+  <arg value="-colors"/>
 	<!-- Do not print warnings -->
-	<arg value="n"/>
-	<!-- Show sniff codes in all reports -->
-	<arg value="s"/>
+  <arg value="n"/>
+  <!-- Show sniff codes in all reports -->
+  <arg value="s"/>
 
 	<!-- Exclude tests -->
 	<exclude-pattern>tests/</exclude-pattern>

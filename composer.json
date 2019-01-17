@@ -1,54 +1,35 @@
 {
-	"name": "lumenlearning/candela-utility",
-	"license": "GPL-2.0+",
-	"version": "1.0",
-	"type" : "wordpress-plugin",
-	"description": "Candela Utility is a plugin that extends the functionality of Pressbooks by utilizing various action and filter hooks supplied by the Pressbooks API.",
-	"homepage": "https://github.com/lumenlearning/candela-utility",
-	"authors": [
-		{
-			"name": "Lumen Learning",
-			"email": "dev@lumenlearning.com",
-			"homepage": "https://lumenlearning.com"
-		}
-	],
-	"keywords": ["ebooks", "publishing", "webbooks"],
-	"support": {
-		"email": "dev@lumenlearning.com",
-		"issues": "https://github.com/lumenlearning/candela-utility/issues/",
-		"docs": "https://github.com/lumenlearning/candela-utility/README.md",
-		"source": "https://github.com/lumenlearning/candela-utility/"
-	},
-	"config": {
-		"platform": {
-			"php": "7.1"
-		}
-	},
-	"require": {
-		"php": ">=7.1",
-		"composer/installers": "~1.0"
-	},
-	"require-dev": {
-		"mybuilder/phpunit-accelerator": "^2.0",
-		"phpunit/phpunit": "^6.5"
-	},
-	"archive": {
-		"exclude": [
-			".editorconfig",
-			".gitattributes",
-			".gitignore",
-			".travis.yml",
-			"bin",
-			"phpcs.ruleset.xml",
-			"phpunit.xml",
-			"tests"
-		]
-	},
-	"scripts": {
-		"test": [
-			"vendor/bin/phpunit --configuration phpunit.xml",
-			"vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-			"vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
-		]
-	}
+  "name": "lumenlearning/candela-utility",
+  "license": "GPL-2.0+",
+  "version": "0.4.0",
+  "type" : "wordpress-plugin",
+  "description": "Candela Utility is a plugin that extends the functionality of Pressbooks by utilizing various action and filter hooks supplied by the Pressbooks API.",
+  "homepage": "https://github.com/lumenlearning/candela-utility",
+  "authors": [
+    {
+      "name": "Lumen Learning",
+      "email": "dev@lumenlearning.com",
+      "homepage": "https://lumenlearning.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/lumenlearning/candela-utility/issues/",
+    "source": "https://github.com/lumenlearning/candela-utility/"
+  },
+  "require": {
+    "php": ">=5.6.0",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.5",
+    "squizlabs/php_codesniffer": "^2.7",
+    "wp-coding-standards/wpcs": "^0.10"
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit --configuration phpunit.xml",
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
+    ]
+  }
 }
