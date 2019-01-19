@@ -22,7 +22,6 @@ add_filter( 'pressbooks_session_configuration', '\Candela\Utility\pantheon_sessi
  * Necessary configuration updates and changes when a new book is created.
  */
 function pressbooks_new_book() {
-	// Change to a different theme
 	switch_theme( 'bombadil' );
 
 	// Set copyright to display by default
@@ -46,16 +45,20 @@ add_action( 'pressbooks_new_blog', '\Candela\Utility\pressbooks_new_book' );
  * visited but not prior. Unfortunately the wp_insert_post action is not *ONLY*
  * called on new posts as documented so we check for empty values on those we
  * want defaults set for.
+ *
+ * @param $post_id
+ *
  */
 function pressbooks_new_book_info( $post_id ) {
 	// There is exactly one 'metadata' post per wordpress site
 	if ( get_post_type( $post_id ) == 'metadata' ) {
 		$license = get_post_meta( $post_id, 'pb_book_license', true );
+		$copyright_holder = get_post_meta( $post_id, 'pb_copyright_holder', true );
+
 		if ( empty( $license ) ) {
 			update_post_meta( $post_id, 'pb_book_license', 'cc-by' );
 		}
 
-		$copyright_holder = get_post_meta( $post_id, 'pb_copyright_holder', true );
 		if ( empty( $copyright_holder ) ) {
 			update_post_meta( $post_id, 'pb_copyright_holder', 'Lumen Learning' );
 		}
@@ -65,7 +68,10 @@ add_action( 'wp_insert_post', '\Candela\Utility\pressbooks_new_book_info' );
 
 /**
  * Returns the original cover image url that points to Amazon S3, and not the
- * local server that this instance of Wordpress is hosted on.
+ * local server that Wordpress is hosted on.
+ *
+ * @param string $cover_url1
+ * @param string $cover_url2
  *
  * @return $cover_url2 The original cover image url (on Amazon S3)
  */
@@ -77,10 +83,10 @@ add_filter( 'pb_cover_image', '\Candela\Utility\cover_image_url', 10, 2 );
 /**
  * Skips Pressbooks EPUB dependency check.
  *
- * Pressbooks requires a dependency called EPubCheck (https://github.com/idpf/epubcheck)
- * which validates EPUB files. Pantheon hosting does not allow dependencies like
- * this to be installed directly on the server. Therefore, we must opt out of
- * this validation service.
+ * Pressbooks requires a dependency called EPubCheck
+ * (https://github.com/idpf/epubcheck) which validates EPUB files. Pantheon
+ * hosting does not allow dependencies like this to be installed directly on the
+ * server. Therefore, we must opt out of this validation service.
  *
  * @return bool true
  */
@@ -92,8 +98,8 @@ add_filter( 'pb_epub_has_dependencies', '\Candela\Utility\skip_epub_dependency_c
 /**
  * Keep emoticons as text.
  *
- * Wordpress 4.3 removed the ability to turn off text-to-emoji.  This filter keeps
- * wordpress from converting text to emoji and disables the use of the
+ * Wordpress 4.3 removed the ability to turn off text-to-emoji. This filter
+ * keeps wordpress from converting text to emoji and disables the use of the
  * convert_smilies() function.
  */
 add_filter( 'option_use_smilies', '__return_false' );
@@ -105,15 +111,16 @@ add_filter( 'option_use_smilies', '__return_false' );
  * @param string $redirect_to URL to redirect to.
  * @param string $request URL the user is coming from.
  * @param object $user Logged user's data.
+ *
  * @return string
  */
-function reviewer_login_redirect($redirect_to, $request, $user)
-{
-  if (isset($user->roles) && is_array($user->roles)) {
-    if (in_array('reviewer', $user->roles)) {
-      return get_site_url();
-    }
-  }
-  return $redirect_to;
+function reviewer_login_redirect( $redirect_to, $request, $user ) {
+	if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+		if ( in_array( 'reviewer', $user->roles ) ) {
+			return get_site_url();
+		}
+	}
+
+	return $redirect_to;
 }
 add_filter( 'login_redirect', '\Candela\Utility\reviewer_login_redirect', 10, 3 );

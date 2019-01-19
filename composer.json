@@ -1,9 +1,10 @@
 {
   "name": "lumenlearning/candela-utility",
   "license": "GPL-2.0+",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "type" : "wordpress-plugin",
-  "description": "Candela Utility is a plugin that extends the functionality of Pressbooks by utilizing various action and filter hooks supplied by the Pressbooks API.",
+  "description":
+    "A helper plugin that manages additional configuration and bootstrapping on top of Pressbooks.",
   "homepage": "https://github.com/lumenlearning/candela-utility",
   "authors": [
     {
@@ -13,17 +14,41 @@
     }
   ],
   "support": {
+    "email": "dev@lumenlearning.com",
     "issues": "https://github.com/lumenlearning/candela-utility/issues/",
     "source": "https://github.com/lumenlearning/candela-utility/"
   },
+  "config": {
+    "platform": {
+      "php": "7.1"
+    }
+  },
   "require": {
-    "php": ">=5.6.0",
+    "php": ">=7.1",
     "composer/installers": "~1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.5",
-    "squizlabs/php_codesniffer": "^2.7",
-    "wp-coding-standards/wpcs": "^0.10"
+    "phpunit/phpunit": "^7.5.2",
+    "squizlabs/php_codesniffer": "^3.4.0",
+    "wp-coding-standards/wpcs": "dev-master"
+  },
+  "suggest": {
+    "lumenlearning/candela-citation":
+      "Candela Citation is a plugin that extends Creative Commons attribution functionality to Pressbooks",
+    "lumenlearning/candela-outcomes":
+      "Candela Outcomes is a plugin that adds Learning Outcomes metadata for courseware content."
+  },
+  "archive": {
+    "exclude": [
+      ".editorconfig",
+      ".gitattributes",
+      ".gitignore",
+      ".travis.yml",
+      "bin",
+      "phpcs.ruleset.xml",
+      "phpunit.xml",
+      "tests"
+    ]
   },
   "scripts": {
     "test": [
