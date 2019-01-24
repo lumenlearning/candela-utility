@@ -7,6 +7,15 @@ if( ! defined('CANDELA_ASSIGNMENT_POINTS')){
     define('CANDELA_ASSIGNMENT_POINTS', '_cu_assignment_points_possible');
 }
 
+// Register metadata to show in WP JSON API
+add_action( 'rest_api_init', function() {
+  register_meta( 'post', CANDELA_ASSIGNMENT_POINTS, [
+    'show_in_rest' => true,
+    'single' => true,
+    'type' => 'string'
+  ] );
+} );
+
 add_action('admin_init', '\Candela\Utility\AssignmentMeta\candela_on_admin_init');
 
 //Initialize
@@ -51,10 +60,8 @@ function candela_assignment_save_meta_value($id) {
     $id = (int) $_REQUEST['post_ID'];
 
     if (isset($points_possible)) {
-      error_log("UPDATING!!");
         update_post_meta($id, CANDELA_ASSIGNMENT_POINTS, $points_possible);
     } else {
-      error_log("DELETING!!");
         delete_post_meta($id, CANDELA_ASSIGNMENT_POINTS);
     }
 }
